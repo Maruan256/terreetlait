@@ -1,0 +1,175 @@
+{
+    "klarna-payment-order-management": {
+        "order-details": {
+            "title": "Bestelldetails",
+            "orderNumber": "Shopware Bestellnummer",
+            "orderAmount": "Gesamtbetrag",
+            "capturedAmount": "Erfasster Betrag",
+            "refundedAmount": "Erstatteter Betrag",
+            "remainingAmount": "Verbleibender autorisierter Betrag",
+            "remainingAmountHelpText": "Der verbleibende autorisierte Betrag kann bei Bedarf erfasst werden.",
+            "klarnaOrderId": "Klarna Order-ID",
+            "klarnaReference": "Klarna Referenz",
+            "klarnaStatus": "Klarna Auftragsstatus",
+            "initialPaymentMethod": "Ursprüngliche Zahlart",
+            "riskCheck": "Klarna Betrugsstatus",
+            "riskCheckHelpText": "Nur Transaktionen im Status ACCEPTED können erfasst werden.",
+            "expiryDate": "Läuft ab am",
+            "expiryDateHelpText": "Wird das Ablaufdatum überschritten, ist keine weitere Aktion auf der Transaktion möglich."
+        },
+        "order-tab": {
+            "title": "Klarna."
+        },
+        "modal": {
+            "columns": {
+                "reference": "Produktnummer",
+                "product": "Artikel",
+                "amount": "Menge",
+                "price": "Preis",
+                "returnStatus": "Retourenstatus"
+            }
+        },
+        "tooltips": {
+            "transactionCancelled": "Die Transaktion wurde abgebrochen.",
+            "captureImpossible": "Eine Erfassung kann nur durchgeführt werden, wenn die Risikoprüfung erfolgreich war und ein autorisierter Betrag verfügbar ist.",
+            "refundImpossible": "Eine Rückerstattung kann nur durchgeführt werden, wenn ein Betrag vorher erfasst wurde.",
+            "extendAuthorizationImpossible": "Die Autorisierung ist bereits abgelaufen oder erfasst und kann deshalb nicht verlängert werden.",
+            "releaseAmountImpossible": "Es ist kein autorisierter Betrag mehr vorhanden oder bereits der gesamte Betrag erfasst.",
+            "cancellationImpossible": "Die Zahlung kann nur storniert werden, solange noch kein Betrag erfasst wurde."
+        },
+        "captureModal": {
+            "title": "Betrag erfassen",
+            "submit": "Betrag erfassen",
+            "close": "Abbrechen",
+            "labelComment": "Kommentar",
+            "orderAmount": "Gesamter autorisierter Betrag",
+            "capturedAmount": "Schon erfasster Betrag",
+            "remainingAmount": "Verbleibender autorisierter Betrag",
+            "captureAmount": "Betrag erfassen",
+            "descriptionHelpText": "Der Kommentar ist aktuell nicht im Klarna Merchant Portal sichtbar."
+        },
+        "refundModal": {
+            "title": "Betrag rückerstatten",
+            "submit": "Betrag rückerstatten",
+            "close": "Abbrechen",
+            "labelComment": "Kommentar",
+            "orderAmount": "Gesamter autorisierter Betrag",
+            "refundedAmount": "Schon rückerstatter Betrag",
+            "remainingAmount": "Verbleibender autorisierter Betrag",
+            "refundAmount": "Betrag rückerstatten",
+            "descriptionHelpText": "Der Kommentar ist aktuell nicht im Klarna Merchant Portal sichtbar.",
+            "noReturnRequested": "Keine Rückgabe beantragt"
+        },
+        "detailModal": {
+            "title": "Details"
+        },
+        "authorizationModal": {
+            "title": "Autorisierung verlängern",
+            "content": "Möchten Sie wirklich die Autorisierung verlängern?",
+            "submit": "Ja, verlängern",
+            "close": "Abbrechen"
+        },
+        "transactionHistory": {
+            "title": "Bestellhistorie",
+            "columns": {
+                "status": "Status",
+                "date": "Zeitpunkt",
+                "message": "Meldung"
+            },
+            "messages": {
+                "CancelOrder": "Bestellung storniert",
+                "CancelPayment": "Zahlung storniert",
+                "GetOrder": "Bestellung abgerufen",
+                "CreateCapture": "Betrag erfasst",
+                "CreateOrder": "Bestellung erstellt",
+                "CreateRefund": "Betrag erstattet",
+                "ExtendAuthorization": "Autorisierung verlängert",
+                "Fallback": "Unbekannte Abfrage",
+                "ReleaseRemainingAuthorization": "Restbetrag freigegeben",
+                "UpdateAddress": "Adresse geändert",
+                "UpdateOrder": "Bestellung geändert",
+                "UpdateMerchantReferences": "Händler Referenz geändert"
+            },
+            "modal": {
+                "typeColumn": "Betrag",
+                "valueColumn": "Wert",
+                "noAmount": "Keine weiteren Informationen",
+                "httpStatus": "HTTP-Statuscode:",
+                "type": {
+                    "total": "Gesamtbetrag der Transaktion",
+                    "captured": "Erfasster Betrag in dieser Aktion",
+                    "refunded": "Erstatteter Betrag in dieser Aktion"
+                },
+                "klarnaOrderId": "Klarna Bestell Id:",
+                "klarnaErrorCode": "Klarna Fehler Code:",
+                "klarnaErrorMessages": "Klarna Fehler Meldungen:",
+                "klarnaCorrelationId": "Klarna Korrelations Id:",
+                "ResponseButton": {
+                    "Shown": "Response verstecken",
+                    "NotShown": "Response anzeigen"
+                },
+                "RequestButton": {
+                    "Shown": "Request verstecken",
+                    "NotShown": "Request anzeigen"
+                }
+            }
+        },
+        "cancellation": {
+            "messages": {
+                "successTitle": "Erfolg",
+                "successMessage": "Die Zahlung wurde erfolgreich storniert.",
+                "failureTitle": "Fehler",
+                "failureMessage": "Die Zahlung konnte nicht storniert werden."
+            },
+            "modalButton": "Zahlung stornieren",
+            "modal": {
+                "title": "Zahlungsstornierung",
+                "content": "Wollen Sie die Zahlung wirklich stornieren?",
+                "submit": "Ja, stornieren",
+                "close": "Abbrechen"
+            }
+        },
+        "buttons": {
+            "captureAmount": "Betrag erfassen",
+            "refundAmount": "Betrag rückerstatten",
+            "cancelOrder": "Bestellung stornieren",
+            "extendAuthorization": "Autorisierung verlängern",
+            "releaseAmount": "Betrag freigeben",
+            "showDetails": "Details"
+        },
+        "release": {
+            "messages": {
+                "successTitle": "Erfolg",
+                "successMessage": "Der verbleibende Betrag wurde freigegeben.",
+                "failureTitle": "Fehler",
+                "failureMessage": "Der verbleibende Betrag konnte nicht freigegeben werden."
+            },
+            "modal": {
+                "title": "Verbleibenden Autorisierungsbetrag freigeben",
+                "content": "Möchten Sie wirklich den verbleibenden Autorisierungsbetrag freigeben?",
+                "submit": "Ja, freigeben",
+                "close": "Abbrechen"
+            }
+        },
+        "messages": {
+            "authorizationModal": {
+                "extendSuccessTitle": "Erfolg",
+                "extendSuccessMessage": "Die Klarna Autorisierung wurde erfolgreich verlängert.",
+                "extendErrorTitle": "Fehler",
+                "extendErrorMessage": "Die Klarna Autorisierung konnte nicht erfolgreich verlängert werden."
+            },
+            "loadErrorTitle": "Fehler",
+            "loadErrorMessage": "Die Klarna Auftragsdetails konnten nicht geladen werden.",
+            "captureErrorTitle": "Fehler",
+            "captureErrorMessage": "Erfassung konnte nicht erfolgreich durchgeführt werden.",
+            "captureSuccessTitle": "Erfolg",
+            "captureSuccessMessage": "Erfassung erfolgreich durchgeführt.",
+            "refundErrorTitle": "Fehler",
+            "refundErrorMessage": "Erstattung konnte nicht erfolgreich durchgeführt werden.",
+            "refundSuccessTitle": "Erfolg",
+            "refundSuccessMessage": "Erstattung erfolgreich durchgeführt.",
+            "updateErrorTitle": "Fehler",
+            "updateErrorMessage": "Klarna hat die Änderung der Bestellung nicht akzeptiert."
+        }
+    }
+}

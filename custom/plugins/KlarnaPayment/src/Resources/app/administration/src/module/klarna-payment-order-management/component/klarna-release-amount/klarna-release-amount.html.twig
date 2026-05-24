@@ -1,0 +1,42 @@
+{% block klarna_payment_amount_authorization %}
+    <sw-container class="klarna-release-amount">
+        <mt-text-field :help-text="$tc('klarna-payment-order-management.order-details.remainingAmountHelpText')"
+                       :suffix="true" :disabled="true"
+                       :label="$tc('klarna-payment-order-management.order-details.remainingAmount')"
+                       :model-value="currencyFilter(klarnaOrder.remaining_amount, klarnaOrder.currency.isoCode)">
+            <template #suffix>
+                <sw-container v-tooltip="{message: $tc('klarna-payment-order-management.tooltips.releaseAmountImpossible'), disabled: !buttonDisabled}" :key="buttonDisabled">
+                    <mt-button :disabled="buttonDisabled" @click="openModal" variant="secondary">
+                        {{ $tc('klarna-payment-order-management.buttons.releaseAmount') }}
+                    </mt-button>
+                </sw-container>
+            </template>
+        </mt-text-field>
+
+        <sw-modal class="klarna-release-amount--modal"
+          v-if="isModalShown"
+          @modal-close="closeModal"
+          :title="$tc('klarna-payment-order-management.release.modal.title')">
+
+            <div class="klarna-release-amount-modal--content">
+                {{ $tc('klarna-payment-order-management.release.modal.content') }}
+            </div>
+
+            <template #modal-footer>
+                <mt-button :disabled="isLoading" @click="closeModal" variant='secondary'>
+                    {{ $tc('klarna-payment-order-management.release.modal.close') }}
+                </mt-button>
+
+                <sw-button-process
+                  class="klarna-release-amount-modal--action"
+                  :disable="isDisabled"
+                  :is-loading="isLoading"
+                  :process-success="isSuccessful"
+                  variant="primary"
+                  @click="releaseRemainingAuthorization">
+                    {{ $tc('klarna-payment-order-management.release.modal.submit') }}
+                </sw-button-process>
+            </template>
+        </sw-modal>
+    </sw-container>
+{% endblock %}

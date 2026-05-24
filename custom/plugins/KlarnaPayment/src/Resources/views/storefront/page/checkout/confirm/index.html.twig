@@ -1,0 +1,24 @@
+{% sw_extends '@Storefront/storefront/page/checkout/confirm/index.html.twig' %}
+
+{% block page_checkout_confirm_form_submit %}
+    {# @var \KlarnaPayment\Components\Extension\SessionDataExtension sessionData #}
+    {% set sessionData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\SessionDataExtension::EXTENSION_NAME')] %}
+
+    {% if not page.cart.errors.blockResubmit and sessionData and sessionData.selectedPaymentMethodCategory is not empty %}
+        <div id="klarnaConfirmFormSubmit" hidden="hidden">
+            {{ parent() }}
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block page_checkout_confirm_product_table %}
+    <div class="row">
+        <div class="col-sm-12">
+            {% sw_include '@Storefront/storefront/klarna/payments.html.twig' %}
+        </div>
+    </div>
+
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,19 @@
+.klarna-authorization--modal{
+    .authorization-modal--action{
+        float: right;
+    }
+}
+
+.klarna-payment-detail--transaction-details--button {
+    height: 100%;
+}
+
+.klarna-extend-authorization {
+    .sw-field__addition {
+        padding: 0;
+
+        button {
+            border: 0;
+        }
+    }
+}

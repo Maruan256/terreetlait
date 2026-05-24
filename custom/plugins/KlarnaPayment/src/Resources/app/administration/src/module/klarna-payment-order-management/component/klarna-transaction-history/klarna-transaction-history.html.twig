@@ -1,0 +1,160 @@
+{% block klarna_payment_payment_details_transaction_history %}
+    <mt-card class="klarna-payment-transactionHistory" :title="$tc('klarna-payment-order-management.transactionHistory.title')">
+        {% block klarna_payment_payment_details_transaction_history_data %}
+            <sw-data-grid
+              :data-source="translatedHistory"
+              :columns="transactionHistoryColumns"
+              :show-actions="true"
+              :show-selection="false">
+
+                {% block klarna_payment_payment_details_transaction_history_data_inner %}
+                    {% block klarna_payment_payment_details_transaction_history_data_status %}
+                        <template #column-status="{ item }">
+                            <sw-data-grid-column-boolean :value="!item.error" :is-inline-edit="false" />
+                        </template>
+                    {% endblock %}
+
+                    {% block klarna_payment_payment_details_transaction_history_data_date %}
+                        <template #column-date="{ item }">
+                            {{ dateFilter(item.date, { hour: '2-digit', minute: '2-digit' }) }}
+                        </template>
+                    {% endblock %}
+
+                    <template #action-modals="{ item }">
+                        {% block klarna_payment_payment_details_transaction_history_modal_button %}
+                            <mt-button size="small" @click="openDetailModal(item)" variant='secondary'>
+                                {{ $tc('klarna-payment-order-management.buttons.showDetails') }}
+                            </mt-button>
+                        {% endblock %}
+                    </template>
+                {% endblock %}
+            </sw-data-grid>
+        {% endblock %}
+
+        {% block klarna_payment_payment_details_transaction_history_modal %}
+            <sw-modal v-if="showDetailModal" @modal-close="closeDetailModal" :title="detailModalTitle" class="klarna-payment-detail--transaction-modal klarna-request--modal">
+                {% block klarna_payment_payment_details_transaction_history_modal_success %}
+                    <div v-if="success" class="klarna-request klarna-request--success">
+                        <div v-if="orderAmount" class="klarna-request--amount">
+                            <sw-data-grid
+                              :data-source="orderAmount"
+                              :columns="detailHistoryAmountColumns"
+                              :show-actions="false"
+                              :show-selection="false">
+
+                                <template #column-type="{ item }">
+                                    {{ $tc('klarna-payment-order-management.transactionHistory.modal.type.' + item.type) }}
+                                </template>
+
+                                <template #column-value="{ item }">
+                                    {{ currencyFilter(item.value, klarnaOrder.currency.isoCode) }}
+                                </template>
+                            </sw-data-grid>
+                        </div>
+
+                        <div v-else>
+                            {{ $tc('klarna-payment-order-management.transactionHistory.modal.noAmount') }}
+                        </div>
+                    </div>
+                {% endblock %}
+
+                {% block klarna_payment_payment_details_transaction_history_modal_error %}
+                    <div v-else class="klarna-request--failure">
+                        <div v-if="orderAmount" class="klarna-request--amount">
+                            <sw-data-grid
+                              :data-source="orderAmount"
+                              :columns="detailHistoryAmountColumns"
+                              :show-actions="false"
+                              :show-selection="false">
+
+                                <template #column-type="{ item }">
+                                    {{ $tc('klarna-payment-order-management.transactionHistory.modal.type.' + item.type) }}
+                                </template>
+
+                                <template #column-value="{ item }">
+                                    {{ item.value|currency(klarnaOrder.currency) }}
+                                </template>
+                            </sw-data-grid>
+                        </div>
+
+                        <div v-else>
+                            {{ $tc('klarna-payment-order-management.transactionHistory.modal.noAmount') }}
+                        </div>
+
+                        <div class="klarna-request-failure--order-id">
+                            <span class="text-strong">
+                                {{ $tc('klarna-payment-order-management.transactionHistory.modal.klarnaOrderId') }}
+                            </span>
+
+                            {{ klarnaOrder.order_id }}
+                        </div>
+
+                        <div class="klarna-request-failure--error-code">
+                            <span class="text-strong">{{ $tc('klarna-payment-order-management.transactionHistory.modal.klarnaErrorCode') }}</span>{{ modalResponse.error_code }}
+                        </div>
+
+                        <div class="klarna-request-failure--http-status">
+                            <span class="text-strong">{{ $tc('klarna-payment-order-management.transactionHistory.modal.httpStatus') }}</span>{{ modalHttpStatus }}
+                        </div>
+
+                        <div class="klarna-request-failure--error-messages">
+                            <span class="text-strong">{{ $tc('klarna-payment-order-management.transactionHistory.modal.klarnaErrorMessages') }}</span>
+
+                            <ul>
+                                <li v-for="error_message in modalResponse.error_messages" class="messages-text">
+                                    <span>{{ error_message }}</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="klarna-request-failure--correlation-id">
+                            <span class="text-strong">{{ $tc('klarna-payment-order-management.transactionHistory.modal.klarnaCorrelationId') }}</span>{{ modalResponse.correlation_id }}
+                        </div>
+                    </div>
+                {% endblock %}
+
+                {% block klarna_payment_payment_details_transaction_history_request %}
+                    <div class="klarna-request--json">
+                        <mt-button v-if="stringRequest" size="small" @click="toggleRequestVisibility" variant='secondary'>
+                            <template v-if="isRequestShown">
+                                {{ $tc('klarna-payment-order-management.transactionHistory.modal.RequestButton.Shown') }}
+                            </template>
+
+                            <template v-else>
+                                {{ $tc('klarna-payment-order-management.transactionHistory.modal.RequestButton.NotShown') }}
+                            </template>
+                        </mt-button>
+
+                        <mt-button v-if="stringResponse" size="small" @click="toggleResponseVisibility" variant='secondary'>
+                            <template v-if="isResponseShown">
+                                {{ $tc('klarna-payment-order-management.transactionHistory.modal.ResponseButton.Shown') }}
+                            </template>
+
+                            <template v-else>
+                                {{ $tc('klarna-payment-order-management.transactionHistory.modal.ResponseButton.NotShown') }}
+                            </template>
+                        </mt-button>
+
+                        <sw-code-editor
+                          v-if="isRequestShown"
+                          v-model:value="stringRequest"
+                          mode="text"
+                          :editor-config="editorConfig"
+                          :soft-wraps="true"
+                          :set-focus="false"
+                        />
+                        <sw-code-editor
+                          v-if="isResponseShown"
+                          v-model:value="stringResponse"
+                          mode="text"
+                          :editor-config="editorConfig"
+                          :soft-wraps="true"
+                          :set-focus="false"
+                        />
+                    </div>
+                {% endblock %}
+
+            </sw-modal>
+        {% endblock %}
+    </mt-card>
+{% endblock %}

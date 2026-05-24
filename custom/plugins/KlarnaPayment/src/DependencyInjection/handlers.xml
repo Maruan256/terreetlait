@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="KlarnaPayment\Components\PaymentHandler\KlarnaPaymentsPaymentHandler">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\CreateOrder\CreateOrderRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Client" />
+            <argument type="service" id="order_transaction.repository" />
+            <argument type="service" id="order.repository" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\UpdateOrderRequestHasher" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\UpdateAddressRequestHasher" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateAddress\UpdateAddressRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateOrder\UpdateOrderRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderFetcher" />
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="KlarnaPayment\Components\Validator\OrderTransitionChangeValidator"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\Capture\CaptureStateHelper"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\Authorize\AuthorizeStateHelper" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\SynchronizationHelper\SynchronizationHelper"/>
+            <argument type="service" id="monolog.logger.KlarnaPayment"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\Hpp\HppHelper" />
+
+            <tag name="shopware.payment.method"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\PaymentHandler\KlarnaExpressCheckoutPaymentHandler">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\CreateOrder\CreateExpressOrderRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Client" />
+            <argument type="service" id="order_transaction.repository" />
+            <argument type="service" id="order.repository" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\UpdateOrderRequestHasher" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\UpdateAddressRequestHasher" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateAddress\UpdateAddressRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateOrder\UpdateOrderRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderFetcher" />
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="KlarnaPayment\Components\Validator\OrderTransitionChangeValidator"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\Capture\CaptureStateHelper"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\Authorize\AuthorizeStateHelper" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\SynchronizationHelper\SynchronizationHelper"/>
+            <argument type="service" id="monolog.logger.KlarnaPayment"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\Hpp\HppHelper" />
+
+            <tag name="shopware.payment.method"/>
+        </service>
+    </services>
+</container>

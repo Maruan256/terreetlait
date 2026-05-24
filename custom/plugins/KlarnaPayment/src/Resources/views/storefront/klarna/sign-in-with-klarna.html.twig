@@ -1,0 +1,42 @@
+{% block sign_in_with_klarna %}
+    {% if signInWithKlarna and context.customer is null %}
+        {% block klarna_component_account_login_sign_in_with_klarna %}
+            <div class="card login-card sign-in-with-klarna-login-card my-4">
+                <div class="card-body">
+                    {% block klarna_component_account_login_sign_in_with_klarna_title %}
+                        <div class="card-title">
+                            {{ 'KlarnaPayment.signInWithKlarna.account.title'|trans|sw_sanitize }}
+                        </div>
+                    {% endblock %}
+
+                    {% block klarna_component_account_login_sign_in_with_klarna_container %}
+                        {% set options = {
+                            clientKey: signInWithKlarna.clientKey,
+                            theme: signInWithKlarna.theme,
+                            shape: signInWithKlarna.shape,
+                            dataKeys: signInWithKlarna.dataKeys,
+                            local: page.metaInformation.xmlLang,
+                            callbackUrl: url('widgets.klarna.sign-in.callback'),
+                            redirectRoute: redirectTo,
+                            errorRoute: errorRoute,
+                            redirectUri: url('frontend.home.page')
+                        } %}
+
+                        <div class="sign-in-with-klarna-button-container"
+                            data-sign-in-with-klarna="true"
+                            data-sign-in-with-klarna-options="{{ options|default({})|json_encode }}">
+                            <div class="sign-in-with-klarna-error" hidden="hidden">
+                                {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                                    type: "danger",
+                                    content: "KlarnaPayment.errorMessages.signInWithKlarnaError"|trans|sw_sanitize
+                                } %}
+                            </div>
+
+                            <div id="sign-in-with-klarna" class="sign-in-with-klarna-button"></div>
+                        </div>
+                    {% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+    {% endif %}
+{% endblock %}

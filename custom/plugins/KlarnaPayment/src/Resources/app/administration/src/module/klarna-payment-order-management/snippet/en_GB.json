@@ -1,0 +1,175 @@
+{
+    "klarna-payment-order-management": {
+        "order-details": {
+            "title": "Order details",
+            "orderNumber": "Shopware Order Number",
+            "orderAmount": "Order Total Amount",
+            "capturedAmount": "Captured Amount",
+            "refundedAmount": "Refunded Amount",
+            "remainingAmount": "Remaining Authorized Amount",
+            "remainingAmountHelpText": "The remaining authorized amount can be captured if needed.",
+            "klarnaOrderId": "Klarna Order ID",
+            "klarnaReference": "Klarna Reference",
+            "klarnaStatus": "Klarna Order Status",
+            "initialPaymentMethod": "Initial payment method",
+            "riskCheck": "Klarna Fraud Status",
+            "riskCheckHelpText": "Only transactions with status ACCEPTED can be captured",
+            "expiryDate": "Expiry Date",
+            "expiryDateHelpText": "If the expiry date is exceeded, no further action is possible on the transaction."
+        },
+        "order-tab": {
+            "title": "Klarna."
+        },
+        "modal": {
+            "columns": {
+                "reference": "Product number",
+                "product": "Product",
+                "amount": "Amount",
+                "price": "Price",
+                "returnStatus": "Return status"
+            }
+        },
+        "tooltips": {
+            "transactionCancelled": "The transaction was cancelled.",
+            "captureImpossible": "A capture can only be performed if the risk assessment was successful and authorized amount is available.",
+            "refundImpossible": "A refund can only be made if an amount has been captured.",
+            "extendAuthorizationImpossible": "The authorization has already expired or was captured and can therefore not be renewed.",
+            "releaseAmountImpossible": "There is no authorized amount left or the full amount has been captured.",
+            "cancellationImpossible": "The payment can only be cancelled if no amount has been captured yet."
+        },
+        "captureModal": {
+            "title": "Capture amount",
+            "submit": "Capture amount",
+            "close": "Cancel",
+            "labelComment": "Comment",
+            "orderAmount": "Total authorized amount",
+            "capturedAmount": "Amount already captured",
+            "remainingAmount": "Remaining authorized amount",
+            "captureAmount": "Capture amount",
+            "descriptionHelpText": "The comment is currently not visible in the Klarna Merchant Portal."
+        },
+        "refundModal": {
+            "title": "Refund amount",
+            "submit": "Refund amount",
+            "close": "Cancel",
+            "labelComment": "Comment",
+            "orderAmount": "Total authorized amount",
+            "refundedAmount": "Amount already refunded",
+            "remainingAmount": "Remaining refundable amount",
+            "refundAmount": "Refund amount",
+            "descriptionHelpText": "The comment is currently not visible in the Klarna Merchant Portal.",
+            "noReturnRequested": "No return requested"
+        },
+        "detailModal": {
+            "title": "Details"
+        },
+        "authorizationModal": {
+            "title": "Extend authorization",
+            "content": "Do you really want to extend the authorization?",
+            "submit": "Yes, extend",
+            "close": "Cancel"
+        },
+        "transactionHistory": {
+            "title": "Order history",
+            "columns": {
+                "status": "Status",
+                "date": "Time",
+                "message": "Message"
+            },
+            "messages": {
+                "CancelOrder": "Order cancelled",
+                "CancelPayment": "Cancelled payment",
+                "GetOrder": "Order requested",
+                "CreateCapture": "Capture created",
+                "CreateOrder": "Order placed",
+                "CreateRefund": "Refund created",
+                "ExtendAuthorization": "Authorization extended",
+                "Fallback": "Unknown request",
+                "ReleaseRemainingAuthorization": "Remaining amount released",
+                "UpdateAddress": "Address updated",
+                "UpdateOrder": "Order updated",
+                "UpdateMerchantReferences": "Merchant reference updated"
+            },
+            "modal": {
+                "typeColumn": "Amount",
+                "valueColumn": "Value",
+                "noAmount": "No further information",
+                "httpStatus": "HTTP Status Code:",
+                "type": {
+                    "total": "Order Transaction Total Amount",
+                    "captured": "Captured Amount in this action",
+                    "refunded": "Refunded Amount in this action"
+                },
+                "klarnaOrderId": "Klarna Order Id:",
+                "klarnaErrorCode": "Klarna Error Code:",
+                "klarnaErrorMessages": "Error Messages:",
+                "klarnaCorrelationId": "Klarna Correlation Id:",
+                "ResponseButton": {
+                    "Shown": "Hide response",
+                    "NotShown": "Show response"
+                },
+                "RequestButton": {
+                    "Shown": "Hide request",
+                    "NotShown": "Show request"
+                }
+            }
+        },
+        "cancellation": {
+            "messages": {
+                "successTitle": "Success",
+                "successMessage": "The payment was successfully cancelled.",
+                "failureTitle": "Failure",
+                "failureMessage": "The payment could not be cancelled."
+            },
+            "modalButton": "Cancel payment",
+            "modal": {
+                "title": "Payment cancellation",
+                "content": "Do you really want to cancel the payment?",
+                "submit": "Yes, cancel the payment",
+                "close": "Cancel"
+            }
+        },
+        "release": {
+            "messages": {
+                "successTitle": "Success",
+                "successMessage": "The remaining authorization amount was successfully released.",
+                "errorTitle": "Error",
+                "errorMessage": "The remaining authorization amount could not be released."
+            },
+            "modal": {
+                "title": "Release authorization amount",
+                "content": "Do you really want to release the remaining authorization amount?",
+                "submit": "Yes, release",
+                "close": "Cancel"
+            }
+        },
+        "buttons": {
+            "captureAmount": "Capture amount",
+            "refundAmount": "Refund amount",
+            "cancelOrder": "Cancel payment",
+            "extendAuthorization": "Extend authorization",
+            "releaseAmount": "Release amount",
+            "showDetails": "Details"
+        },
+        "messages": {
+            "authorizationModal": {
+                "extendSuccessTitle": "Success",
+                "extendSuccessMessage": "The Klarna authorization was successfully extended.",
+                "extendErrorTitle": "Error",
+                "extendErrorMessage": "The Klarna authorization could not be extended."
+            },
+            "loadErrorTitle": "Error",
+            "loadErrorMessage": "Klarna order details could not be loaded.",
+            "captureErrorTitle": "Error",
+            "captureErrorMessage": "Capture could not be performed successfully.",
+            "captureSuccessTitle": "Success",
+            "captureSuccessMessage": "Capture successfully completed.",
+            "refundErrorTitle": "Error",
+            "refundErrorMessage": "Refund could not be performed successfully.",
+            "refundSuccessTitle": "Success",
+            "refundSuccessMessage": "Refund successfully completed.",
+            "updateErrorTitle": "Error",
+            "updateErrorMessage": "Klarna does not approve the order change."
+        }
+    }
+}

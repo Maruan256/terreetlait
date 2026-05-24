@@ -1,0 +1,26 @@
+{% sw_extends '@Storefront/storefront/component/buy-widget/buy-widget.html.twig' %}
+
+{% block buy_widget_delivery_informations %}
+    {% block klarna_payments_onsite_messaging_definition %}
+        {# @var \KlarnaPayment\Components\Extension\TemplateData\OnsiteMessagingDataExtension klarnaOnsiteMessagingData #}
+        {% set klarnaOnsiteMessagingData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\TemplateData\\OnsiteMessagingDataExtension::EXTENSION_NAME')] %}
+
+        {% if klarnaOnsiteMessagingData.klarnaOnsiteMessagingSnippet and klarnaOnsiteMessagingData.klarnaOnsiteMessagingScript %}
+            {{ klarnaOnsiteMessagingData.klarnaOnsiteMessagingSnippet|raw }}
+        {% endif %}
+    {% endblock %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block buy_widget_buy_form %}
+    {{ parent() }}
+
+    {% block page_product_detail_buy_form_klarna_express_checkout %}
+        {% set outOfStock = product.isCloseout and product.stock < product.minPurchase %}
+
+        {% if product.active and not outOfStock %}
+            {% sw_include '@Storefront/storefront/klarna/express-checkout.html.twig' %}
+        {% endif %}
+    {% endblock %}
+{% endblock %}

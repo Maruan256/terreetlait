@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <!-- Administration Controllers -->
+    <import resource="@KlarnaPayment/Components/Controller/Administration/OrderController.php" type="attribute"/>
+    <import resource="@KlarnaPayment/Components/Controller/Administration/OrderUpdateController.php" type="attribute"/>
+    <import resource="@KlarnaPayment/Components/Controller/Administration/SettingsController.php" type="attribute"/>
+
+    <!-- Storefront Controllers -->
+    <import resource="@KlarnaPayment/Components/Controller/Storefront/KlarnaCheckoutController.php" type="attribute"/>
+    <import resource="@KlarnaPayment/Components/Controller/Storefront/KlarnaExpressCheckoutController.php" type="attribute"/>
+    <import resource="@KlarnaPayment/Components/Controller/Storefront/KlarnaPaymentsCallbackController.php" type="attribute"/>
+    <import resource="@KlarnaPayment/Components/Controller/Storefront/KlarnaHppCallbackRoute.php" type="attribute"/>
+    <import resource="@KlarnaPayment/Components/Controller/Storefront/SignInWithKlarnaController.php" type="attribute"/>
+
+    <import resource="@KlarnaPayment/Storefront/Controller/*Controller.php" type="attribute"/>
+</routes>

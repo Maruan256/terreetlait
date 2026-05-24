@@ -1,0 +1,41 @@
+@import "~scss/variables";
+
+.text-strong {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.klarna-request--failure {
+    > div {
+        border-bottom: 1px solid $color-gray-300;
+        margin-bottom: 5px;
+    }
+
+    .klarna-request--amount {
+        border-bottom: none;
+        margin-bottom: 20px;
+    }
+
+    li {
+        margin-left: 20px;
+    }
+}
+
+.klarna-request--json {
+    margin-top: 20px;
+
+    button {
+        margin-bottom: 20px;
+    }
+
+    textarea {
+        margin-top: 10px;
+        background: $color-gray-300;
+        border: none;
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: relative;
+        min-height: 300px;
+    }
+}

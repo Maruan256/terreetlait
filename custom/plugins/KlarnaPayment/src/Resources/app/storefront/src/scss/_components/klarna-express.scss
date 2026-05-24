@@ -1,0 +1,34 @@
+.klarna-express {
+    &.checkout-cart {
+        margin-top: 1rem;
+    }
+    &.checkout-register {
+        margin-bottom: 1rem;
+    }
+    &.offcanvas-cart {
+        margin-top: 1rem;
+    }
+}
+
+.offcanvas-cart {
+    .klarna-express-checkout-button {
+        width: 100%;
+        margin-top: 1rem;
+    }
+}
+
+div[data-is-klarna-express-checkout],
+.klarna-express-checkout-button {
+    &.is-disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+}
+
+div[data-is-klarna-express-checkout] {
+   margin-top: 1rem;
+
+    & > .klarna-express-checkout-button {
+        width: 100%;
+    }
+}

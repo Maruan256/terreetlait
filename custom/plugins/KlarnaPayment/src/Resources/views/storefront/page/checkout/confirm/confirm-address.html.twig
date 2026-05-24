@@ -1,0 +1,17 @@
+{% sw_extends '@Storefront/storefront/page/checkout/confirm/confirm-address.html.twig' %}
+
+{% block page_checkout_confirm_address_billing_actions %}
+    {% set sessionData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\SessionDataExtension::EXTENSION_NAME')] %}
+
+    {% if not sessionData or not sessionData.klarnaExpress %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block page_checkout_confirm_address_shipping_actions %}
+    {% set sessionData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\SessionDataExtension::EXTENSION_NAME')] %}
+
+    {% if not sessionData or not sessionData.klarnaExpress %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

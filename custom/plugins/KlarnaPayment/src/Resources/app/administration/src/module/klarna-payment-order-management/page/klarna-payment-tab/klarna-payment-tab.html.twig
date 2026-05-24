@@ -1,0 +1,47 @@
+{% block klarna_payment_payment_details %}
+    <div class="klarna-payment-tab" v-bind:class="{ 'is--mobile': isMobile }">
+        <div v-if="!hasError && initialized">
+            <mt-card class="klarna-payment-details" :title="$tc('klarna-payment-order-management.order-details.title')">
+                <sw-container columns="1fr 1fr" class="klarna-payment-detail--transaction-details mobile--ready" gap="0px 32px">
+                    <sw-container gap="5px">
+                        <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.klarnaReference')" :model-value="klarnaOrder.reference"></mt-text-field>
+
+                        <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.orderAmount')" :model-value="currencyFilter(klarnaOrder.order_amount, klarnaOrder.currency.isoCode)"></mt-text-field>
+
+                        <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.capturedAmount')" :model-value="currencyFilter(klarnaOrder.captured_amount, klarnaOrder.currency.isoCode) "></mt-text-field>
+
+                        <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.refundedAmount')" :model-value="currencyFilter(klarnaOrder.refunded_amount, klarnaOrder.currency.isoCode) "></mt-text-field>
+
+                        <klarna-release-amount :klarnaOrder="klarnaOrder" v-on:reload="loadData" v-on:subComponentLoading="setSubComponentLoading"></klarna-release-amount>
+                    </sw-container>
+
+                    <sw-container gap="5px">
+                        <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.klarnaOrderId')" :model-value="klarnaOrder.order_id"></mt-text-field>
+
+                        <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.klarnaStatus')" :model-value="klarnaOrder.order_status"></mt-text-field>
+
+                        <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.order-details.initialPaymentMethod')" :model-value="klarnaOrder.initial_payment_method"></mt-text-field>
+
+                        <mt-text-field :helpText="$tc('klarna-payment-order-management.order-details.riskCheckHelpText')"  :disabled="true" :label="$tc('klarna-payment-order-management.order-details.riskCheck')" :model-value="klarnaOrder.fraud_status"></mt-text-field>
+
+                        <klarna-payment-authorization :klarnaOrder="klarnaOrder" v-on:reload="loadData" v-on:subComponentLoading="setSubComponentLoading" ></klarna-payment-authorization>
+                    </sw-container>
+                </sw-container>
+            </mt-card>
+
+            <mt-card class="klarna-payment-actions">
+                <sw-container columns="1fr 1fr 1fr" gap="32px 32px" class="mobile--ready">
+                    <klarna-capture-button :klarnaOrder="klarnaOrder" v-on:reload="loadData"></klarna-capture-button>
+
+                    <klarna-refund-button :klarnaOrder="klarnaOrder" v-on:reload="loadData"></klarna-refund-button>
+
+                    <klarna-order-cancel :klarnaOrder="klarnaOrder" v-on:reload="loadData" v-on:subComponentLoading="setSubComponentLoading"></klarna-order-cancel>
+                </sw-container>
+            </mt-card>
+
+            <klarna-transaction-history :klarnaHistory="klarnaHistory" :klarnaOrder="klarnaOrder" ></klarna-transaction-history>
+        </div>
+
+        <mt-loader v-if="isLoading || isSubComponentLoading" />
+    </div>
+{% endblock %}

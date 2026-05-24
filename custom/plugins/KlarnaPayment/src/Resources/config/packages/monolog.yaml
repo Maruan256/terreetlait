@@ -1,0 +1,9 @@
+monolog:
+  channels: [ "KlarnaPayment" ]
+
+  handlers:
+    klarnaPluginLogHandler:
+      type: rotating_file
+      path: "%kernel.logs_dir%/klarna_payment_%kernel.environment%.log"
+      level: debug
+      channels: [ "KlarnaPayment" ]

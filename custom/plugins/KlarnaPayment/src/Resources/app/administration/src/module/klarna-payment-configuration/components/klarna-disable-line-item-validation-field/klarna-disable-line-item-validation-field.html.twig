@@ -1,0 +1,33 @@
+{% block klarna_switch_field %}
+    <mt-switch
+        v-if="useMeteorComponent"
+        v-bind="$attrs"
+        :model-value="checkedValue"
+        @update:model-value="onChangeHandler"
+        bordered
+    >
+        <slot></slot>
+    </mt-switch>
+
+    <sw-switch-field-deprecated
+            v-else
+            v-bind="$attrs"
+            :bordered="true"
+            :value="value"
+            @update:value="onChangeHandler"
+    >
+        <slot></slot>
+    </sw-switch-field-deprecated>
+
+    {% block klarna_disable_line_item_validation_confirm_modal %}
+        <sw-confirm-modal
+            v-if="showDisableLineItemValidationModal"
+            class="klarna-disable-line-item-validation-modal"
+            :title="$tc('klarna-payment-configuration.settingsForm.apiConfiguration.modal-lineItem.title')"
+            :text="$tc('klarna-payment-configuration.settingsForm.apiConfiguration.modal-lineItem.text')"
+            @confirm="onConfirmDisableLineItemValidation"
+            @close="onCloseDisableLineItemValidationModal"
+            @cancel="onCloseDisableLineItemValidationModal"
+        />
+    {% endblock %}
+{% endblock %}

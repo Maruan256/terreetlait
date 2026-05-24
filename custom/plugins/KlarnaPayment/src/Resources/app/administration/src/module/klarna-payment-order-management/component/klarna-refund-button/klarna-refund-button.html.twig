@@ -1,0 +1,42 @@
+{% block klarna_payment_payment_details %}
+    <div class="klarna-refund-button">
+        <sw-container v-tooltip="{message: $tc('klarna-payment-order-management.tooltips.refundImpossible'), disabled: buttonEnabled}" :key="buttonEnabled">
+            <mt-button class='rfnd-btn' :disabled="!buttonEnabled" @click="openRefundModal" size='default' variant="secondary">
+                {{ $tc('klarna-payment-order-management.buttons.refundAmount') }}
+            </mt-button>
+        </sw-container>
+
+        <sw-modal v-if="showRefundModal" @modal-close="closeRefundModal" :title="$tc('klarna-payment-order-management.refundModal.title')" class="klarna-payment-detail--refund-modal">
+            <klarna-order-items
+              :klarna-order="klarnaOrder"
+              :return-data="returnData"
+              :swag-commercial-installed="swagCommercialInstalled"
+              :is-return-data-loading="isReturnDataLoading"
+              mode="refund"
+              v-on:select-item="onSelectItem"
+              v-on:change-quantity="onChangeQuantity">
+            </klarna-order-items>
+
+            <div class="klarna-payment-detail--refund-modal--content">
+                <sw-container columns="1fr 1fr" gap="0 32px">
+                    <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.refundModal.orderAmount')" :model-value="currencyFilter(klarnaOrder.order_amount, klarnaOrder.currency.isoCode)"></mt-text-field>
+                    <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.refundModal.refundedAmount')" :model-value="currencyFilter(klarnaOrder.refunded_amount, klarnaOrder.currency.isoCode)"></mt-text-field>
+                    <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.refundModal.remainingAmount')" :model-value="currencyFilter(klarnaOrder.remainingAmount, klarnaOrder.currency.isoCode)"></mt-text-field>
+                    <mt-number-field required="required" number-type="float" :digits="2" :label="$tc('klarna-payment-order-management.refundModal.refundAmount')" v-model="refundAmount" :min="minRefundValue" :max="maxRefundAmount"></mt-number-field>
+                </sw-container>
+
+                <mt-textarea :help-text="$tc('klarna-payment-order-management.refundModal.descriptionHelpText')" @update:model-value="onChangeDescription" :label="$tc('klarna-payment-order-management.refundModal.labelComment')" v-model="description" />
+            </div>
+
+            <template #modal-footer>
+                <mt-button :disabled="isLoading" @click="closeRefundModal" variant="secondary" size="default">
+                    {{ $tc('klarna-payment-order-management.refundModal.close') }}
+                </mt-button>
+
+                <sw-button-process :is-loading="isLoading" :process-success="isRefundSuccessful" @update:process-success="onRefundFinished()" :disabled="isLoading" variant="primary" @click="refundOrder">
+                    {{ $tc('klarna-payment-order-management.refundModal.submit') }}
+                </sw-button-process>
+            </template>
+        </sw-modal>
+    </div>
+{% endblock %}

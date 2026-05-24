@@ -1,0 +1,9 @@
+{% block sw_product_stream_detail_content_language_info %}
+	<mt-card v-if='isKlarnaMethod' :title="$tc('klarna.sw-settings-payment.banner.title')">
+		<mt-banner variant='attention'>
+			<span v-html="$tc('klarna.sw-settings-payment.banner.text', { link: paymentMethodUrl })"></span>
+		</mt-banner>
+	</mt-card>
+
+	{% parent %}
+{% endblock %}

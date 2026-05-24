@@ -1,0 +1,19 @@
+@import "~scss/variables";
+
+.klarna-payment-detail--capture-modal {
+    .sw-modal__body {
+        padding: 0;
+    }
+
+    .sw-modal__footer {
+        border-top: 1px solid $color-gray-300;
+    }
+
+    .klarna-payment-detail--capture-modal--content, .klarna-payment-detail--refund-modal--content {
+        padding: 20px 30px;
+    }
+
+    textarea {
+        min-height: 50px !important;
+    }
+}

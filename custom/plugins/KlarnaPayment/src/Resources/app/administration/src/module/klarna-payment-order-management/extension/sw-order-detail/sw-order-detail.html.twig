@@ -1,0 +1,20 @@
+{% block sw_order_detail_content_tabs_general %}
+    {% parent %}
+
+    <template v-for="transaction in klarnaTransactions">
+        {% block klarna_payment_payment_tab %}
+            <sw-tabs-item :route="{name: 'klarna-payment-order-management.payment.detail', params: { id: $route.params.id, transaction: transaction.transaction } }" :title="$tc('klarna-payment-order-management.order-tab.title')">
+                <span :class="transaction.cancelled ? 'klarna-tab-error' : ''">
+                    {{ $tc('klarna-payment-order-management.order-tab.title') }}
+
+                    <mt-icon v-if="transaction.cancelled"
+                      class="klarna-error-badge"
+                      name="regular-info-circle"
+                      size="14px"
+                      v-tooltip="{ message: $tc('klarna-payment-order-management.tooltips.transactionCancelled') }"
+                    />
+                </span>
+            </sw-tabs-item>
+        {% endblock %}
+    </template>
+{% endblock %}

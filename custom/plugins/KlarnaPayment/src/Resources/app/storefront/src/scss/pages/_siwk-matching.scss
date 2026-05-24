@@ -1,0 +1,6 @@
+.is-ctl-siwkmatching {
+  .is-different > input, .is-different > select {
+    outline: var(--bs-border-width) solid #CCCC00;
+    outline-offset: var(--bs-border-width);
+  }
+}

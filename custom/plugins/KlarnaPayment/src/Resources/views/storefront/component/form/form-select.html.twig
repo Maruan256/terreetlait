@@ -1,0 +1,9 @@
+{% sw_extends "@Storefront/storefront/component/form/form-select.html.twig" %}
+
+{% block component_form_select_select %}
+	{{ parent() }}
+
+	{% if not isRegisterAddress and isSiwkRoute and shopValue is defined and isDifferent %}
+		{{ 'KlarnaPayment.signInWithKlarna.matching.input.compareTitle'|trans({ '%shopValue%': shopValue })|raw }}
+	{% endif %}
+{% endblock %}

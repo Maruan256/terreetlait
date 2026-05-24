@@ -1,0 +1,13 @@
+{% block klarna_form_submit_button %}
+    {% set cssClass = 'register-submit d-grid ' ~ additionalClass %}
+
+    <div class="{{ cssClass }}">
+        <button type="submit"
+                class="btn btn-primary btn-lg"
+                name="submitButton"
+                value="{{ name }}"
+                >
+            {{ label }}
+        </button>
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% sw_extends '@Storefront/storefront/page/content/product-detail.html.twig' %}
+
+{% block base_esi_header %}
+    {# @var \KlarnaPayment\Components\Extension\TemplateData\OnsiteMessagingDataExtension klarnaOnsiteMessagingData #}
+    {% set klarnaOnsiteMessagingData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\TemplateData\\OnsiteMessagingDataExtension::EXTENSION_NAME')] %}
+
+    {% if klarnaOnsiteMessagingData.klarnaOnsiteMessagingSnippet and klarnaOnsiteMessagingData.klarnaOnsiteMessagingScript %}
+        {{ klarnaOnsiteMessagingData.klarnaOnsiteMessagingScript|raw }}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}

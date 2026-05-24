@@ -1,0 +1,70 @@
+{
+     "KlarnaPayment": {
+          "errorMessages": {
+               "genericError": "Es ist ein Fehler aufgetreten.",
+               "paymentDeclined": "Klarna hat die Zahlung abgelehnt, bitte wählen Sie eine andere Zahlungsart.",
+               "addressChangeDeclined": "Klarna hat die Änderung der Adresse nicht genehmigt.",
+               "lineItemChangeDeclined": "Klarna hat die Änderung des Warenkorbs nicht genehmigt.",
+               "expressLoginError": "Eine Anmeldung über Klarna Express ist aktuell nicht möglich.",
+               "signInWithKlarnaError": "Eine Anmeldung über Klarna ist aktuell nicht möglich."
+          },
+          "klarnaPayments": {
+               "cardTitle": "Klarna."
+          },
+          "cookie": {
+               "klarna": "Klarna",
+               "metrix": "Online Metrix"
+          },
+          "entityType": {
+               "label": "Rechtsform",
+               "placeholder": "Bitte wählen...",
+               "LIMITED_COMPANY": "Gesellschaft mit beschränkter Haftung (GmbH)",
+               "CIVIL_LAW_PARTNERSHIP": "Gesellschaft bürgerlichen Rechts (GbR)",
+               "ENTREPRENEURIAL_COMPANY": "UG (haftungsbeschränkt)",
+               "GENERAL_PARTNERSHIP": "Offene Handelsgesellschaft (OHG)",
+               "LIMITED_PARTNERSHIP": "Kommanditgesellschaft (KG)",
+               "LIMITED_PARTNERSHIP_LIMITED_COMPANY": "Gesellschaft mit beschränkter Haftung und Kommanditgesellschaft (GmbH & KG)",
+               "PUBLIC_INSTITUTION": "Öffentliche Einrichtung",
+               "PUBLIC_LIMITED_COMPANY": "Aktiengesellschaft (AG)",
+               "REGISTERED_SOLE_TRADER": "Eingetragener Kaufmann/Kauffrau",
+               "SOLE_TRADER": "Einzelunternehmen/Freiberuf",
+               "OTHER": "Sonstige"
+          },
+          "registrationId": {
+               "label": "Handelsregisternummer",
+               "placeholder": "Handelsregisternummer eingeben..."
+          },
+          "signInWithKlarna": {
+               "account": {
+                    "title": "Anmelden mit"
+               },
+               "matching": {
+                    "headline": {
+                         "title": "Rechnungs-Adresse prüfen und bestätigen",
+                         "description": "Eine Abweichende Klarna-Adresse wurde erkannt: Prüfen und mit einem Klick übernehmen."
+                    },
+                    "headline-create": {
+                         "title": "Rechnungs-Adresse prüfen und bestätigen",
+                         "description": "Es ist keine Klarna-Adresse vorhanden. Gib deine Adresse ein, um einen Benutzer erstellen zu können."
+                    },
+                    "input": {
+                         "compareTitle": "<strong>Aktuell im Shop:</strong> %shopValue%"
+                    },
+                    "button": {
+                         "label": {
+                              "abort": "Zurück",
+                              "create": "Speichern"
+                         }
+                    }
+               }
+          }
+     },
+     "error": {
+          "VIOLATION::KLARNA_INVALID_CART_HASH": "Die Zahlung wurde abgelehnt, bitte versuchen Sie es erneut."
+     },
+     "checkout": {
+          "error": {
+               "state": "Bitte Region/Bundesland/Bundesstaat in der Rechnungsadresse hinterlegen."
+          }
+     }
+}

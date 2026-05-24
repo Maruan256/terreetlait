@@ -1,0 +1,55 @@
+{% block component_address_form_company_klarna_entity_type %}
+    {% if not config("KlarnaPayment.settings.hideLegalForm") %}
+        <div class="form-group col-md-6">
+            {% block component_address_form_company_klarna_entity_type_label %}
+                <label class="form-label"
+                       for="{{ idPrefix ~ prefix }}KlarnaEntityType">
+                    {{ "KlarnaPayment.entityType.label"|trans }}
+                </label>
+            {% endblock %}
+
+            {% block component_address_form_company_klarna_entity_type_input %}
+                <select class="custom-select form-select"
+                        id="{{ idPrefix ~ prefix }}KlarnaEntityType"
+                        name="{{ prefix }}[customFields][klarna_customer_entity_type]">
+                    {% if data.get('customFields') is empty or data.get('customFields').klarna_customer_entity_type is empty %}
+                        <option disabled hidden selected>
+                            {{ "KlarnaPayment.entityType.placeholder"|trans }}
+                        </option>
+                    {% endif %}
+                    {% for type in constant('\\KlarnaPayment\\Installer\\Modules\\CustomFieldInstaller::CUSTOMER_ENTITY_TYPES') %}
+                        <option value="{{ type }}"
+                            {% if data.get('customFields') and (data.get('customFields').klarna_customer_entity_type is same as(type)) %}
+                                selected="selected"
+                            {% endif %}
+                        >
+                            {{ ("KlarnaPayment.entityType." ~ type)|trans }}
+                        </option>
+                    {% endfor %}
+                </select>
+            {% endblock %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block component_address_form_company_klarna_registration_id %}
+    {% if not config("KlarnaPayment.settings.hideRegistrationId") %}
+        <div class="form-group col-md-6">
+            {% block component_address_form_company_klarna_registration_id_label %}
+                <label class="form-label"
+                       for="{{ idPrefix ~ prefix }}KlarnaRegistrationId">
+                    {{ "KlarnaPayment.registrationId.label"|trans }}
+                </label>
+            {% endblock %}
+
+            {% block component_address_form_company_klarna_registration_id_input %}
+                <input type="text"
+                       class="form-control"
+                       id="{{ idPrefix ~ prefix }}KlarnaRegistrationId"
+                       name="{{ prefix }}[customFields][klarna_customer_registration_id]"
+                       placeholder="{{ "KlarnaPayment.registrationId.placeholder"|trans }}"
+                       value="{{ data.get('customFields').klarna_customer_registration_id }}">
+            {% endblock %}
+        </div>
+    {% endif %}
+{% endblock %}

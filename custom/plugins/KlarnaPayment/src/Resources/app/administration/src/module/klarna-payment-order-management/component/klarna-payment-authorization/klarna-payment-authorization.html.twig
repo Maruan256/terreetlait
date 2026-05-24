@@ -1,0 +1,39 @@
+{% block klarna_payment_authorization %}
+    <sw-container class="klarna-extend-authorization">
+        <mt-text-field :help-text="$tc('klarna-payment-order-management.order-details.expiryDateHelpText')" :suffix="true" :disabled="true" :label="$tc('klarna-payment-order-management.order-details.expiryDate')" :model-value="dateFilter(klarnaOrder.expiry_date, { hour: '2-digit', minute: '2-digit' })">
+            <template #suffix>
+                <sw-container v-tooltip="{message: $tc('klarna-payment-order-management.tooltips.extendAuthorizationImpossible'), disabled: !buttonDisabled}" :key="buttonDisabled">
+                    <mt-button :disabled="buttonDisabled" @click="openModal" variant="secondary">
+                        {{ $tc('klarna-payment-order-management.buttons.extendAuthorization') }}
+                    </mt-button>
+                </sw-container>
+            </template>
+        </mt-text-field>
+
+        <sw-modal class="klarna-payment-detail--authorization-modal klarna-authorization--modal"
+          v-if="showModal"
+          @modal-close="closeModal"
+          :title="$tc('klarna-payment-order-management.authorizationModal.title')">
+
+            <div class="authorization-modal--text">
+                {{ $tc('klarna-payment-order-management.authorizationModal.content') }}
+            </div>
+
+            <template #modal-footer>
+                <mt-button :disabled="isLoading" @click="closeModal" size='default' variant="secondary">
+                    {{ $tc('klarna-payment-order-management.authorizationModal.close') }}
+                </mt-button>
+
+                <sw-button-process
+                  class="authorization-modal--action"
+                  variant="primary"
+                  :is-loading="isLoading"
+                  :disabled="isDisabled"
+                  :process-success="isSuccessful"
+                  @click="extendAuthorization">
+                    {{ $tc('klarna-payment-order-management.authorizationModal.submit') }}
+                </sw-button-process>
+            </template>
+        </sw-modal>
+    </sw-container>
+{% endblock %}

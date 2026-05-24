@@ -1,0 +1,231 @@
+{% sw_extends '@Storefront/storefront/component/address/address-form.html.twig' %}
+
+{% set isSiwkRoute = activeRoute == "frontend.klarna.siwk-matching.page" %}
+
+{% block component_address_form_street %}
+    {% set klarnaLabel = data.extensions.klarnaData.street.klarnaValue %}
+    {% set shopValue = data.extensions.klarnaData.street.value %}
+    {% set isDifferent = not isRegisterAddress and not data.extensions.klarnaData.street.isIdentical ? " is-different" : "" %}
+
+    {% if isSiwkRoute %}
+        {% if formViolations.getViolations('/street') is not empty %}
+            {% set violationPath = '/street' %}
+        {% elseif formViolations.getViolations("/#{prefix}/street") is not empty %}
+            {% set violationPath = "/#{prefix}/street" %}
+        {% else %}
+            {% set requiredMessage = 'error.VIOLATION::IS_BLANK_ERROR'|trans({ '%field%': 'address.streetLabel'|trans|sw_sanitize }) %}
+        {% endif %}
+
+        {% sw_include '@Storefront/storefront/component/form/form-input.html.twig' with {
+            label: 'address.streetLabel'|trans|sw_sanitize,
+            id: idPrefix ~ prefix ~ '-AddressStreet',
+            name: prefix ~ '[street]',
+            value: klarnaLabel,
+            autocomplete: streetAutocomplete,
+            violationPath: violationPath,
+            validationRules: 'required',
+            additionalClass: 'col-md-6' ~ isDifferent,
+            shopValue: shopValue
+        } %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block component_address_form_zipcode_city_fields  %}
+    {% if isSiwkRoute %}
+        {% set klarnaLabel = data.extensions.klarnaData.zipcode.klarnaValue %}
+        {% set shopValue = data.extensions.klarnaData.zipcode.value %}
+        {% set isDifferent = not isRegisterAddress and not data.extensions.klarnaData.zipcode.isIdentical ? " is-different" : "" %}
+
+        {% set zipcodeField %}
+            {% set zipcodeValue = formViolations.getInputData()['zipcode'] ?? data.get('zipcode') %}
+
+            {% if formViolations.getViolations('/zipcode') is not empty %}
+                {% set violationPath = '/zipcode' %}
+            {% elseif formViolations.getViolations("/#{prefix}/zipcode") is not empty %}
+                {% set violationPath = "/#{prefix}/zipcode" %}
+            {% else %}
+                {% set requiredMessage = 'error.VIOLATION::IS_BLANK_ERROR'|trans({ '%field%': 'address.zipcodeLabel'|trans|sw_sanitize }) %}
+            {% endif %}
+
+            {% sw_include '@Storefront/storefront/component/form/form-input.html.twig' with {
+                label: 'address.zipcodeLabel'|trans|sw_sanitize,
+                id: idPrefix ~ prefix ~ 'AddressZipcode',
+                name: prefix ~ '[zipcode]',
+                value: klarnaLabel,
+                autocomplete: zipCodeAutocomplete,
+                violationPath: violationPath,
+                additionalClass: 'col-md-3 col-4' ~ isDifferent,
+                attributes: {
+                    'data-input-name': 'zipcodeInput'
+                },
+                shopValue: shopValue
+            } %}
+        {% endset %}
+    {% endif %}
+
+
+    {% if isSiwkRoute %}
+        {% set klarnaLabel = data.extensions.klarnaData.city.klarnaValue %}
+        {% set shopValue = data.extensions.klarnaData.city.value %}
+        {% set isDifferent = not isRegisterAddress and not data.extensions.klarnaData.city.isIdentical ? " is-different" : "" %}
+
+        {% set cityField %}
+            {% if formViolations.getViolations('/city') is not empty %}
+                {% set violationPath = '/city' %}
+            {% elseif formViolations.getViolations("/#{prefix}/city") is not empty %}
+                {% set violationPath = "/#{prefix}/city" %}
+            {% else %}
+                {% set requiredMessage = 'error.VIOLATION::IS_BLANK_ERROR'|trans({ '%field%': 'address.cityLabel'|trans|sw_sanitize }) %}
+                {% set violationPath = null %}
+            {% endif %}
+
+            {% sw_include '@Storefront/storefront/component/form/form-input.html.twig' with {
+                label: 'address.cityLabel'|trans|sw_sanitize,
+                id: idPrefix ~ prefix ~ 'AddressCity',
+                name: prefix ~ '[city]',
+                value: klarnaLabel,
+                autocomplete: cityAutocomplete,
+                violationPath: violationPath,
+                validationRules: 'required',
+                additionalClass: 'col-md-3 col-8' ~ isDifferent,
+                shopValue: shopValue
+            } %}
+        {% endset %}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %} 
+
+{% block component_address_form_country_select %}
+    {% set klarnaLabel = page.countries.elements[data.extensions.klarnaData.countryId.klarnaValue].translated.name %}
+    {% set shopValue = page.countries.elements[data.extensions.klarnaData.countryId.value].translated.name %}
+    {% set isDifferent = not isRegisterAddress and not data.extensions.klarnaData.countryId.isIdentical ? " is-different" : "" %}
+
+    {% if isSiwkRoute %}
+        {% set initialCountryId = null %}
+
+        {% if klarnaLabel %}
+            {% set initialCountryId = data.extensions.klarnaData.countryId.klarnaValue %}
+        {% elseif page.countries|length == 1 and disableNonShippableCountries is not defined %}
+            {% set initialCountryId = (page.countries|first).id %}
+        {% endif %}
+
+        {% if formViolations.getViolations('/countryId') is not empty %}
+            {% set violationPath = '/countryId' %}
+        {% elseif formViolations.getViolations("/#{prefix}/countryId") is not empty %}
+            {% set violationPath = "/#{prefix}/countryId" %}
+        {% endif %}
+
+        {% set countryOptions %}
+            {% if not initialCountryId %}
+                <option value="" disabled="disabled" selected="selected">
+                    {{ 'address.countryPlaceholder'|trans|sw_sanitize }}
+                </option>
+            {% endif %}
+            {% for country in page.countries %}
+                <option value="{{ country.id }}"
+                        {% if country.id == initialCountryId %}selected="selected"{% endif %}
+                        data-zipcode-required="{{ country.postalCodeRequired }}"
+                        data-vat-id-required="{{ country.vatIdRequired }}"
+                        data-state-required="{{ country.forceStateInRegistration }}"
+                    {% if not country.shippingAvailable and disableNonShippableCountries %}disabled="disabled"{% endif %}>
+                        {{ country.translated.name }}
+                    {% if showNoShippingPostfix and not country.shippingAvailable %}
+                        {{ 'address.countryPostfixNoShipping'|trans|sw_sanitize }}
+                    {% endif %}
+                </option>
+            {% endfor %}
+        {% endset %}
+
+        {% sw_include '@Storefront/storefront/component/form/form-select.html.twig' with {
+            label: 'address.countryLabel'|trans|sw_sanitize,
+            id: idPrefix ~ prefix ~ 'AddressCountry',
+            name: prefix ~ '[countryId]',
+            autocomplete: countryAutocomplete,
+            options: countryOptions,
+            violationPath: violationPath,
+            validationRules: 'required',
+            additionalClass: 'col-md-6' ~ isDifferent,
+            additionalSelectClass: 'country-select',
+            attributes: {
+                'data-initial-country-id': initialCountryId,
+            },
+            shopValue: shopValue
+        } %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block component_address_form_phone_number %}
+    {% set klarnaLabel = data.extensions.klarnaData.phoneNumber.klarnaValue %}
+    {% set shopValue = data.extensions.klarnaData.phoneNumber.value %}
+    {% set isDifferent = not isRegisterAddress and not data.extensions.klarnaData.phoneNumber.isIdentical ? " is-different" : "" %}
+
+    {% if isSiwkRoute %}
+        {% if config('core.loginRegistration.showPhoneNumberField') %}
+
+            {% if formViolations.getViolations('/phoneNumber') is not empty %}
+                {% set violationPath = '/phoneNumber' %}
+            {% elseif formViolations.getViolations("/#{prefix}/phoneNumber") is not empty %}
+                {% set violationPath = "/#{prefix}/phoneNumber" %}
+            {% endif %}
+
+            {% sw_include '@Storefront/storefront/component/form/form-input.html.twig' with {
+                label: 'address.phoneNumberLabel'|trans|sw_sanitize,
+                id: idPrefix ~ prefix ~ 'AddressPhoneNumber',
+                name: prefix ~ '[phoneNumber]',
+                value: klarnaLabel,
+                autocomplete: phoneAutocomplete,
+                violationPath: violationPath,
+                validationRules: config('core.loginRegistration.phoneNumberFieldRequired') ? 'required',
+                additionalClass: 'col-md-6' ~ isDifferent,
+                shopValue: shopValue
+            } %}
+        {% endif %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block component_address_form_additional_field1 %}
+    {% set klarnaLabel = data.extensions.klarnaData.additionalAddressLine1.klarnaValue %}
+    {% set shopValue = data.extensions.klarnaData.additionalAddressLine1.value %}
+    {% set isDifferent = not isRegisterAddress and not data.extensions.klarnaData.additionalAddressLine1.isIdentical ? " is-different" : "" %}
+
+    {% if isSiwkRoute %}
+        {% if config('core.loginRegistration.showAdditionalAddressField1') %}
+            {% if formViolations.getViolations('/additionalAddressLine1') is not empty %}
+                {% set violationPath = '/additionalAddressLine1' %}
+            {% elseif formViolations.getViolations("/#{prefix}/additionalAddressLine1") is not empty %}
+                {% set violationPath = "/#{prefix}/additionalAddressLine1" %}
+            {% endif %}
+
+            {% sw_include '@Storefront/storefront/component/form/form-input.html.twig' with {
+                label: 'address.additionalField1Label'|trans|sw_sanitize,
+                id: idPrefix ~ prefix ~ 'AdditionalField1',
+                name: prefix ~ '[additionalAddressLine1]',
+                value: klarnaLabel,
+                autocomplete: additionalFieldOneAutocomplete,
+                violationPath: violationPath,
+                validationRules: config('core.loginRegistration.additionalAddressField1Required') ? 'required',
+                additionalClass: 'col-md-6' ~ isDifferent,
+                shopValue: shopValue
+            } %}
+        {% endif %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block component_address_form_company_department %}
+    {{ parent() }}
+
+    {% sw_include '@Storefront/storefront/component/address/klarna-address-form.html.twig' with {
+        'idPrefix': idPrefix,
+        'prefix': prefix,
+        'data': data
+    } %}
+{% endblock %}

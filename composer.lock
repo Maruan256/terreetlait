@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "517ae25c8e9d11f1d442ffe85eeb588e",
+    "content-hash": "b58ac886cafe81c261613aacd934839c",
     "packages": [
         {
             "name": "brick/math",
@@ -3740,6 +3740,85 @@
             "time": "2026-03-22T11:41:50+00:00"
         },
         {
+            "name": "php-http/discovery",
+            "version": "1.20.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-http/discovery.git",
+                "reference": "82fe4c73ef3363caed49ff8dd1539ba06044910d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/82fe4c73ef3363caed49ff8dd1539ba06044910d",
+                "reference": "82fe4c73ef3363caed49ff8dd1539ba06044910d",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0|^2.0",
+                "php": "^7.1 || ^8.0"
+            },
+            "conflict": {
+                "nyholm/psr7": "<1.0",
+                "zendframework/zend-diactoros": "*"
+            },
+            "provide": {
+                "php-http/async-client-implementation": "*",
+                "php-http/client-implementation": "*",
+                "psr/http-client-implementation": "*",
+                "psr/http-factory-implementation": "*",
+                "psr/http-message-implementation": "*"
+            },
+            "require-dev": {
+                "composer/composer": "^1.0.2|^2.0",
+                "graham-campbell/phpspec-skip-example-extension": "^5.0",
+                "php-http/httplug": "^1.0 || ^2.0",
+                "php-http/message-factory": "^1.0",
+                "phpspec/phpspec": "^5.1 || ^6.1 || ^7.3",
+                "sebastian/comparator": "^3.0.5 || ^4.0.8",
+                "symfony/phpunit-bridge": "^6.4.4 || ^7.0.1"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Http\\Discovery\\Composer\\Plugin",
+                "plugin-optional": true
+            },
+            "autoload": {
+                "psr-4": {
+                    "Http\\Discovery\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "src/Composer/Plugin.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com"
+                }
+            ],
+            "description": "Finds and installs PSR-7, PSR-17, PSR-18 and HTTPlug implementations",
+            "homepage": "http://php-http.org",
+            "keywords": [
+                "adapter",
+                "client",
+                "discovery",
+                "factory",
+                "http",
+                "message",
+                "psr17",
+                "psr7"
+            ],
+            "support": {
+                "issues": "https://github.com/php-http/discovery/issues",
+                "source": "https://github.com/php-http/discovery/tree/1.20.0"
+            },
+            "time": "2024-10-02T11:20:13+00:00"
+        },
+        {
             "name": "phpseclib/phpseclib",
             "version": "3.0.52",
             "source": {
@@ -5584,6 +5663,75 @@
             "time": "2025-09-22T12:34:21+00:00"
         },
         {
+            "name": "shopware/paypal-sdk",
+            "version": "v1.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shopware/paypal-sdk.git",
+                "reference": "b426d84be427f89a948a4522630e39dbaa297d1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/shopware/paypal-sdk/zipball/b426d84be427f89a948a4522630e39dbaa297d1a",
+                "reference": "b426d84be427f89a948a4522630e39dbaa297d1a",
+                "shasum": ""
+            },
+            "require": {
+                "php-http/discovery": "^1.20",
+                "psr/http-client": "^1.0",
+                "psr/http-client-implementation": "^1.0",
+                "psr/http-factory": "^1.1",
+                "psr/simple-cache": "^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.75",
+                "guzzlehttp/psr7": "^2.7",
+                "kubawerlos/php-cs-fixer-custom-fixers": "^3.24",
+                "monolog/monolog": "^3.9",
+                "php-http/guzzle7-adapter": "^1.1",
+                "phpstan/extension-installer": "^1.4",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpstan/phpstan-strict-rules": "^2.0",
+                "phpunit/phpunit": "^11.5",
+                "roave/backward-compatibility-check": "^8.13",
+                "symplify/phpstan-rules": "^14.5",
+                "zircote/swagger-php": "^5.0"
+            },
+            "suggest": {
+                "guzzlehttp/psr7": "HTTP client implementation",
+                "php-http/guzzle7-adapter": "HTTP client implementation"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Shopware\\PayPalSDK\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "shopware AG",
+                    "email": "info@shopware.com",
+                    "role": "Owner"
+                },
+                {
+                    "name": "cyl3x",
+                    "email": "cyl3x@posteo.de",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "SDK to communicate with the PayPal API",
+            "support": {
+                "issues": "https://github.com/shopware/paypal-sdk/issues",
+                "source": "https://github.com/shopware/paypal-sdk/tree/v1.6.3"
+            },
+            "time": "2026-03-31T13:52:23+00:00"
+        },
+        {
             "name": "shopware/storefront",
             "version": "v6.7.10.1",
             "source": {
@@ -5766,6 +5914,129 @@
                 "source": "https://github.com/squirrelphp/twig-php-syntax/tree/v1.13"
             },
             "time": "2025-05-03T06:37:30+00:00"
+        },
+        {
+            "name": "swag/paypal",
+            "version": "10.6.1",
+            "dist": {
+                "type": "path",
+                "url": "custom/plugins/SwagPayPal",
+                "reference": "2817a020ca0bd4bff08ee2169e64728b178d04f2"
+            },
+            "require": {
+                "shopware/core": "~6.7.0@dev",
+                "shopware/paypal-sdk": "^1.6.3"
+            },
+            "suggest": {
+                "shopware/administration": "Require '*'. Allows you to to set up the plugin easily",
+                "shopware/storefront": "Require '*'. Enables special payment features like 'Smart Payment Buttons' or 'Express Checkout'"
+            },
+            "type": "shopware-platform-plugin",
+            "extra": {
+                "shopware-plugin-class": "Swag\\PayPal\\SwagPayPal",
+                "copyright": "(c) by shopware AG",
+                "label": {
+                    "de-DE": "PayPal-Produkte für Shopware 6",
+                    "en-GB": "PayPal Products for Shopware 6"
+                },
+                "description": {
+                    "de-DE": "Bieten Sie Ihren Kunden Deutschlands beliebteste Bezahlmöglichkeiten mit nur einer Integration: Das PayPal-Plugin bietet PayPal Checkout, den Expressbutton, Zettle und vieles mehr",
+                    "en-GB": "Get access to over 100 currencies and 200 markets worldwide with the payment module PayPal for your Shopware shop. Experience an easy and comfortable way of payment."
+                },
+                "manufacturerLink": {
+                    "de-DE": "https://store.shopware.com/shopware-ag.html",
+                    "en-GB": "https://store.shopware.com/en/shopware-ag.html"
+                },
+                "supportLink": {
+                    "de-DE": "https://issues.shopware.com/",
+                    "en-GB": "https://issues.shopware.com/"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Swag\\PayPal\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Swag\\PayPal\\Test\\": "tests/"
+                }
+            },
+            "scripts": {
+                "jest": [
+                    "npm run unit-setup --prefix ../../../src/Administration/Resources/app/administration",
+                    "npm run unit --prefix src/Resources/app/administration"
+                ],
+                "jest:watch": [
+                    "npm run unit-setup --prefix ../../../src/Administration/Resources/app/administration",
+                    "npm run unit-watch --prefix src/Resources/app/administration"
+                ],
+                "lint": [
+                    "@ecs-fix",
+                    "@phpstan",
+                    "@phpunit"
+                ],
+                "ecs": [
+                    "../../../vendor/bin/php-cs-fixer fix --dry-run"
+                ],
+                "ecs-fix": [
+                    "../../../vendor/bin/php-cs-fixer fix"
+                ],
+                "init:admin": [
+                    "npm ci --no-audit --prefer-offline --prefix src/Resources/app/administration"
+                ],
+                "lint:admin": [
+                    "npm run lint-fix --prefix src/Resources/app/administration"
+                ],
+                "lint:admin:ci": [
+                    "npm run lint --prefix src/Resources/app/administration"
+                ],
+                "init:storefront": [
+                    "npm ci --no-audit --prefer-offline --prefix src/Resources/app/storefront"
+                ],
+                "lint:storefront": [
+                    "@lint:storefront:ci --fix"
+                ],
+                "lint:storefront:ci": [
+                    "cd src/Resources/app/storefront && if [ -f ../../../../../../../src/Storefront/Resources/app/storefront/eslint.config.js ]; then ../../../../../../../src/Storefront/Resources/app/storefront/node_modules/.bin/eslint --config ../../../../../../../src/Storefront/Resources/app/storefront/eslint.config.js ./src; else ../../../../../../../src/Storefront/Resources/app/storefront/node_modules/.bin/eslint --config ../../../../../../../src/Storefront/Resources/app/storefront/.eslintrc.js ./src; fi",
+                    "cd src/Resources/app/storefront && ../../../../../../../src/Storefront/Resources/app/storefront/node_modules/.bin/stylelint --config ../../../../../../../src/Storefront/Resources/app/storefront/stylelint.config.js ./src/scss"
+                ],
+                "phpunit": [
+                    "../../../vendor/bin/phpunit"
+                ],
+                "phpstan": [
+                    "php bin/phpstan-config-generator.php",
+                    "php ../../../vendor/bin/phpstan analyze"
+                ],
+                "rector": [
+                    "../../../vendor/bin/rector process"
+                ],
+                "rector-dry": [
+                    "../../../vendor/bin/rector process --dry-run"
+                ],
+                "openapi:generate": [
+                    "../../../bin/console swag:paypal:openapi:generate",
+                    "npm run openapi-types --prefix src/Resources/app/administration"
+                ],
+                "bc-check": [
+                    "php ../../../vendor-bin/roave-backward-compatibility-check/bin/verify-version.php",
+                    "@putenv TMPDIR=./..",
+                    "../../../vendor/bin/roave-backward-compatibility-check"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shopware"
+                }
+            ],
+            "description": "PayPal integration for Shopware 6",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "symfony/asset",

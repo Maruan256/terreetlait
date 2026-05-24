@@ -1,0 +1,39 @@
+{% block klarna_payment_payment_details %}
+    <div class="klarna-capture-button">
+        <sw-container v-tooltip="{message: $tc('klarna-payment-order-management.tooltips.captureImpossible'), disabled: buttonEnabled}" :key="buttonEnabled">
+            <mt-button class='cpt-btn' :disabled="!buttonEnabled" @click="openCaptureModal" size='default' variant="secondary">
+                {{ $tc('klarna-payment-order-management.buttons.captureAmount') }}
+            </mt-button>
+        </sw-container>
+
+        <sw-modal v-if="showCaptureModal" @modal-close="closeCaptureModal" :title="$tc(`klarna-payment-order-management.captureModal.title`)" class="klarna-payment-detail--capture-modal">
+            <klarna-order-items
+              :klarna-order="klarnaOrder"
+              mode="capture"
+              @select-item="onSelectItem"
+              @change-quantity="onChangeQuantity">
+            </klarna-order-items>
+
+            <div class="klarna-payment-detail--capture-modal--content">
+                <sw-container columns="1fr 1fr" gap="0 32px">
+                    <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.captureModal.orderAmount')" :model-value="currencyFilter(klarnaOrder.order_amount, klarnaOrder.currency.isoCode)" />
+                    <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.captureModal.capturedAmount')" :model-value="currencyFilter(klarnaOrder.captured_amount, klarnaOrder.currency.isoCode)" />
+                    <mt-text-field :disabled="true" :label="$tc('klarna-payment-order-management.captureModal.remainingAmount')" :model-value="currencyFilter(klarnaOrder.remaining_amount, klarnaOrder.currency.isoCode)" />
+                    <mt-number-field required="required" number-type="float" :step="null" :digits="2" :fill-digits="false" :allow-empty="false" :label="$tc('klarna-payment-order-management.captureModal.captureAmount')" v-model="captureAmount" :min="minCaptureValue" :max="maxCaptureAmount" />
+                </sw-container>
+
+                <mt-textarea :help-text="$tc('klarna-payment-order-management.captureModal.descriptionHelpText')" @update:model-value="onChangeDescription" :label="$tc('klarna-payment-order-management.captureModal.labelComment')" v-model="description" />
+            </div>
+
+            <template #modal-footer>
+                <mt-button :disabled="isLoading" @click="closeCaptureModal" size="default" variant="secondary">
+                    {{ $tc('klarna-payment-order-management.captureModal.close') }}
+                </mt-button>
+
+                <sw-button-process :is-loading="isLoading" :process-success="isCaptureSuccessful" @update:process-success="onCaptureFinished()" :disabled="isLoading" variant="primary" @click="captureOrder">
+                    {{ $tc('klarna-payment-order-management.captureModal.submit') }}
+                </sw-button-process>
+            </template>
+        </sw-modal>
+    </div>
+{% endblock %}

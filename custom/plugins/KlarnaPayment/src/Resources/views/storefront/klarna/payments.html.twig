@@ -1,0 +1,48 @@
+{# @var \KlarnaPayment\Components\Extension\SessionDataExtension sessionData #}
+{% set sessionData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\SessionDataExtension::EXTENSION_NAME')] %}
+
+{# @see src/Storefront/Resources/views/storefront/page/checkout/confirm/confirm-payment.html.twig #}
+{% set paymentMethodInvalid = true %}
+
+{% for payment in page.paymentMethods %}
+    {% if payment.extensions.klarna.paymentId|default(payment.id) is same as(context.paymentMethod.id) %}
+        {% set paymentMethodInvalid = false %}
+    {% endif %}
+{% endfor %}
+
+{% if sessionData and not page.cart.errors.blockResubmit %}
+    <div id="klarna-configuration"
+      data-is-klarna-payments="true"
+      data-klarna-payments-options='{
+        "clientToken": "{{ sessionData.clientToken }}",
+        "paymentCategory": "{{ sessionData.selectedPaymentMethodCategory }}",
+        "customerData": {{ sessionData.customerData|json_encode }},
+        "saveFormDataUrl": "{{ url('widgets.klarna.checkout.save') }}",
+        "useAuthorizationCallback": {{ sessionData.useAuthorizationCallback|json_encode }},
+        "isKlarnaExpress": {{ sessionData.klarnaExpress|json_encode }},
+        "sessionDataUrl": "{{ url('widgets.klarna.checkout.session') }}",
+        "authorizationCompletedUrl": "{{ url('klarna.authorization.complete') }}"
+      }'>
+    </div>
+
+    <input type="hidden" name="klarnaAuthorizationToken" id="klarnaAuthorizationToken" form="confirmOrderForm">
+    <input type="hidden" name="klarnaCartHash" value="{{ sessionData.cartHash }}" form="confirmOrderForm">
+    <input type="hidden" name="klarnaCustomerData" value="{{ sessionData.customerData|json_encode }}" form="confirmOrderForm">
+
+    {% if sessionData.selectedPaymentMethodCategory and not(paymentMethodInvalid) %}
+        <div class="klarna-payment klarna-payments">
+            <div class="card-title">
+                {{ "KlarnaPayment.klarnaPayments.cardTitle"|trans }}
+            </div>
+
+            <div id="klarnaUnavailableError" hidden="hidden">
+                {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                  type: "danger",
+                  content: "checkout.payment-method-blocked" | trans({'%name%': context.paymentMethod.translated.name})
+                } %}
+            </div>
+
+            <div id="klarnaPaymentsContainer" hidden="hidden"></div>
+        </div>
+    {% endif %}
+{% endif %}

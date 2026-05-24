@@ -1,0 +1,26 @@
+{% block klarna_express_checkout %}
+    {% set klarnaExpressCheckout = page.extensions[constant('KlarnaPayment\\Components\\Extension\\TemplateData\\ExpressDataExtension::EXTENSION_NAME')] %}
+
+    {% if klarnaExpressCheckout and context.customer is null %}
+        <div
+            data-is-klarna-express-checkout
+            data-klarna-express-checkout-options='{
+                "containerSelector": "{{ containerSelector|default('.klarna-express-checkout-button') }}",
+                "clientKey": "{{ klarnaExpressCheckout.clientKey }}",
+                "theme": "{{ klarnaExpressCheckout.theme }}",
+                "shape": "{{ klarnaExpressCheckout.shape }}",
+                "addLineItem": {{ (addLineItem ?? true)|json_encode }},
+                "sessionDataUrl": "{{ url('widgets.klarna.checkout.session') }}",
+                "loginUrl": "{{ url('widgets.klarna.checkout.login') }}"
+            }'>
+            <div class="klarna-express-checkout-error" hidden="hidden">
+                {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                    type: "danger",
+                    content: "KlarnaPayment.errorMessages.expressLoginError"|trans|sw_sanitize
+                } %}
+            </div>
+
+            <div class="klarna-express-checkout-button"></div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,6 @@
+{% sw_extends '@Storefront/storefront/page/checkout/finish/finish-address.html.twig' %}
+
+{% block page_checkout_finish_address_billing %}
+    {% set billingAddress = page.order.addresses.get(page.order.billingAddressId) ?? context.customer.defaultBillingAddress %}
+    {{ parent() }}
+{% endblock %}

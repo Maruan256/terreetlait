@@ -1,0 +1,68 @@
+{% sw_extends '@Storefront/storefront/component/address/address-personal.html.twig' %}
+
+{% set isSiwkRoute = activeRoute == "frontend.klarna.siwk-matching.page" %}
+
+{% block component_address_personal_fields_first_name %}
+    {% set klarnaLabel = data.extensions.klarnaData.firstName.klarnaValue|default(data.get("firstName")) %}
+    {% set shopValue = data.extensions.klarnaData.firstName.value %}
+    {% set isDifferent = not isRegisterAddress and not data.extensions.klarnaData.firstName.isIdentical ? " is-different" : "" %}
+
+    {% if isSiwkRoute %}
+        {% set prefix = "siwkAddress" %}
+
+        {# New implementation, setting of "violationPath" #}
+        {% if formViolations.getViolations("/#{prefix}/firstName") is not empty %}
+            {% set violationPath = "/#{prefix}/firstName" %}
+        {% elseif formViolations.getViolations("/firstName") is not empty and prefix === 'address' %}
+            {% set violationPath = "/firstName" %}
+        {% else %}
+            {% set requiredMessage = "error.VIOLATION::IS_BLANK_ERROR"|trans({ '%field%': "account.personalFirstNameLabel"|trans|sw_sanitize }) %}
+        {% endif %}
+
+        {% sw_include '@Storefront/storefront/component/form/form-input.html.twig' with {
+            label: 'account.personalFirstNameLabel'|trans|sw_sanitize,
+            id: idPrefix ~ prefix ~ '-personalFirstName',
+            name: prefix ? prefix ~ '[firstName]' : 'firstName',
+            value: klarnaLabel,
+            autocomplete: 'section-personal given-name',
+            violationPath: violationPath,
+            validationRules: 'required',
+            additionalClass: 'col-sm-6' ~ isDifferent,
+            shopValue: shopValue
+        } %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block component_address_personal_fields_last_name %}
+    {% set klarnaLabel = data.extensions.klarnaData.lastName.klarnaValue|default(data.get("lastName")) %}
+    {% set shopValue = data.extensions.klarnaData.lastName.value %}
+    {% set isDifferent = not isRegisterAddress and not data.extensions.klarnaData.lastName.isIdentical ? " is-different" : "" %}
+
+    {% if isSiwkRoute %}
+        {% set prefix = "siwkAddress" %}
+
+        {% if formViolations.getViolations("/#{prefix}/lastName") is not empty %}
+            {% set violationPath = "/#{prefix}/lastName" %}
+        {% elseif formViolations.getViolations("/lastName") is not empty and prefix === 'address' %}
+            {% set violationPath = "/lastName" %}
+        {% else %}
+            {% set requiredMessage = "error.VIOLATION::IS_BLANK_ERROR"|trans({ '%field%': "account.personalLastNameLabel"|trans|sw_sanitize }) %}
+        {% endif %}
+
+        {% sw_include '@Storefront/storefront/component/form/form-input.html.twig' with {
+            label: 'account.personalLastNameLabel'|trans|sw_sanitize,
+            id: idPrefix ~ prefix ~ '-personalLastName',
+            name: prefix ? prefix ~ '[lastName]' : 'lastName',
+            value: klarnaLabel,
+            autocomplete: 'section-personal family-name',
+            violationPath: violationPath,
+            validationRules: 'required',
+            additionalClass: 'col-sm-6' ~ isDifferent,
+            shopValue: shopValue
+        } %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+       <service id="KlarnaPayment\Core\Checkout\Payment\SalesChannel\PaymentMethodRouteDecorator"
+            decorates="Shopware\Core\Checkout\Payment\SalesChannel\PaymentMethodRoute" public="true">
+            <argument type="service" id="KlarnaPayment\Core\Checkout\Payment\SalesChannel\PaymentMethodRouteDecorator.inner" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\MediaHelper\MediaHelper" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\CreateSession\CreateExtendedSessionRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateSession\UpdateExtendedSessionRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Client" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Address\AddressStructHydrator" />
+            <argument type="service" id="monolog.logger.KlarnaPayment" />
+            <argument type="service" id="Shopware\Core\System\SalesChannel\Context\SalesChannelContextPersister"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\Hpp\HppHelper" />
+            <argument type="string">%env(APP_SECRET)%</argument>
+        </service>
+      </services>
+  </container>

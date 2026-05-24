@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="KlarnaPayment\Components\EventListener\CheckoutEventListener">
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="order_address.repository" />
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\EventListener\DataMappingEventListener">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\EventListener\FooterBadgeEventListener">
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\EventListener\OrderChangeEventListener">
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderFetcher" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderValidator\OrderValidator" />
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader" />
+            <argument type="service" id="monolog.logger.KlarnaPayment" />
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\EventListener\OrderDeliveriesWrittenEventListener">
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderDeliveryHelper\OrderDeliveryHelper"/>
+            <argument type="service" id="monolog.logger.KlarnaPayment" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\GetOrder\GetOrderRequestHydrator"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Response\GetOrder\GetOrderResponseHydrator"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Client"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\AddShippingInfo\AddShippingInfoRequestHydrator"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\EventListener\OrderStatusTransitionEventListener">
+            <argument type="service" id="KlarnaPayment\Components\Validator\OrderTransitionChangeValidator" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\Capture\CaptureStateHelper" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\Refund\RefundStateHelper" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\Cancel\CancelStateHelper" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderFetcher" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\StateData\StateDataHelper"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderValidator\OrderValidator"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\EventListener\OrderValidationEventListener">
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService" />
+            <argument type="service" id="KlarnaPayment\Components\CartHasher\CartHasher" />
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\EventListener\SessionEventListener">
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\CreateSession\CreateSessionRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateSession\UpdateSessionRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Address\AddressStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Customer\CustomerStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Client" />
+            <argument type="service" id="KlarnaPayment\Components\CartHasher\CartHasher" />
+            <argument type="service" id="KlarnaPayment\Components\Factory\MerchantDataFactory" />
+            <argument type="service" id="KlarnaPayment\Components\Converter\CustomOrderConverter" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderFetcher" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader" />
+            <argument type="service" id="request_stack"/>
+            <argument type="string">%env(APP_SECRET)%</argument>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\EventListener\TemplateDataEventListener">
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader" />
+            <argument type="service" id="KlarnaPayment\Components\OnsiteMessagingReplacer\ProductPriceReplacer" />
+            <argument type="service" id="KlarnaPayment\Components\Validator\OnsiteMessagingValidator" />
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\EventListener\ExpressButtonEventListener">
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader" />
+            <argument type="service" id="Shopware\Core\System\SalesChannel\SalesChannel\ContextSwitchRoute" />
+            <argument type="service" id="request_stack"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\EventListener\SignInWithKlarnaButtonEventListener">
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader" />
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\EventListener\RequestListener">
+            <tag name="kernel.event_subscriber"/>
+        </service>
+    </services>
+</container>

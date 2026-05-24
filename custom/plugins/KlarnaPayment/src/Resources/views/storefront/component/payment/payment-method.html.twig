@@ -1,0 +1,32 @@
+{% sw_extends '@Storefront/storefront/component/payment/payment-method.html.twig' %}
+
+{# @var \Shopware\Core\Checkout\Payment\PaymentMethodEntity payment #}
+
+{% set klarnaExtension = payment.extensions.klarna %}
+{% set sessionData = page.extensions[constant('KlarnaPayment\\Components\\Extension\\SessionDataExtension::EXTENSION_NAME')] %}
+
+{% if klarnaExtension %}
+	{% set selectedPaymentMethodId = sessionData.selectedPaymentMethodCategory %}
+{% endif %}
+
+{% block component_payment_method_input %}
+	{% if klarnaExtension.paymentId and klarnaExtension.identifier %}
+		<input type="radio" id="paymentMethod{{ klarnaExtension.identifier }}" name="paymentMethodId" value="{{ klarnaExtension.paymentId }}" {% if payment.id is same as(selectedPaymentMethodId) %} checked="checked" {% endif %} {% if page.isPaymentChangeable is defined and not page.isPaymentChangeable %} disabled="disabled" {% endif %} class="form-check-input payment-method-input" data-focus-id="{{ payment.id }}" data-klarna-select='{{ klarnaExtension.identifier }}'>
+	{% else %}
+		{{ parent() }}
+	{% endif %}
+{% endblock %}
+
+{% block component_payment_method_image %}
+	{% if payment.id in constant('KlarnaPayment\\Installer\\Modules\\PaymentMethodInstaller::KLARNA_EXPRESS_CHECKOUT_CODES')|keys %}
+		<img class="float-right clearfix payment-method-image img-fluid" src="https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.png" title="{{ payment.translated.name }}" alt="{{ payment.translated.name }}"/>
+	{% elseif klarnaExtension and klarnaExtension.paymentId == constant('KlarnaPayment\\Installer\\Modules\\PaymentMethodInstaller::KLARNA_PAY') %}
+		{# @var \KlarnaPayment\Components\Extension\SessionDataExtension sessionData #}
+		{% set paymentMethodIdentifier = payment.id %}
+		{% set paymentMethodCategory = sessionData.getPaymentMethodCategory(paymentMethodIdentifier) %}
+
+		<img class="float-right clearfix payment-method-image img-fluid" src="{{ paymentMethodCategory.asset_urls.standard|default('https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.svg') }}" title="{{ payment.translated.name }}" alt="{{ payment.translated.name }}"/>
+	{% else %}
+		{{ parent() }}
+	{% endif %}
+{% endblock %}

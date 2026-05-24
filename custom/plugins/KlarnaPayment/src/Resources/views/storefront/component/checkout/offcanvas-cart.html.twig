@@ -1,0 +1,11 @@
+{% sw_extends '@Storefront/storefront/component/checkout/offcanvas-cart.html.twig' %}
+
+{% block component_offcanvas_cart_actions_checkout %}
+    {{ parent() }}
+
+    {% block component_offcanvas_cart_actions_checkout_klarna_express_checkout %}
+        {% if page.cart.lineItems|length > 0 %}
+            {% sw_include '@Storefront/storefront/klarna/express-checkout.html.twig' with { addLineItem: false, containerSelector: '.offcanvas .klarna-express-checkout-button' } %}
+        {% endif %}
+    {% endblock %}
+{% endblock %}

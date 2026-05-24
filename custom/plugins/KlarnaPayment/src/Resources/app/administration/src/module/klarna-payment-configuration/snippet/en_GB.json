@@ -1,0 +1,63 @@
+{
+     "klarna-payment-configuration": {
+          "module": {
+               "title": "Klarna.",
+               "description": "Klarna."
+          },
+          "settingsForm": {
+               "title": "Klarna",
+               "inheritanceWarning": "The display of inheritance for plugin configuration has been optimized with Shopware 6.3.4.0. Please update your system if you want to use inheritance safely.",
+               "apiConfiguration": {
+                    "notice": "Please note that the test and debug mode can't be configured individually per region as the corresponding endpoint is selected based on the billing address.",
+                    "modal-address": {
+                         "title": "Warning: Risk When Address Validation Is Disabled",
+                         "text": "Disabling address validation may result in the shipping address no longer matching the one originally approved by Klarna. Please note that in such cases, you as the merchant bear the risk of a dispute being decided against you. For more information, please refer to our"
+                    },
+                    "modal-lineItem": {
+                         "title": "Warning: Risk When Line-Item Validation Is Disabled",
+                         "text": "Disabling line item validation may cause discrepancies between the shop and Klarna’s accepted line items. Please note that in such cases, you as the merchant bear the risk of a dispute being decided against you. For more information, please refer to our"
+                    }
+               },
+               "globalPurchaseMissingInfo": "Pay Now, Pay Later and Financing will be combined into one payment method: Pay with Klarna. Every Klarna customer will soon be automatically migrated to this Global Purchase Flow. The status of your migration will be checked every time a customer accesses the order-confirmation page. This message will disappear once you have been migrated.",
+               "deprecatedConfiguration": "Pay Now, Pay Later and Financing are now combined into one payment method: Pay with Klarna. This configuration is not needed anymore and will be removed in a future version.",
+               "messages": {
+                    "titleSuccess": "Success",
+                    "titleError": "Error",
+                    "messageTestEUSuccess": "The API credentials for Europe were successfully validated.",
+                    "messageTestUSSuccess": "The API credentials for North America were successfully validated.",
+                    "messageTestEUErrorLive": "The API credentials for Europe could not be validated.",
+                    "messageTestEUErrorTest": "The test mode API credentials for Europe could not be validated.",
+                    "messageTestUSErrorLive": "The API credentials for North America could not be validated.",
+                    "messageTestUSErrorTest": "The test mode API credentials for North America could not be validated.",
+                    "messageSaveSuccess": "The plugin settings have been saved.",
+                    "messageSaveError": "The plugin settings could not be saved.",
+                    "messageMissingApiUsername": "No value has been provided for field \"API Username\" related to the active mode!",
+                    "messageMissingApiPassword": "No value has been provided for field \"API Password\" related to the active mode!"
+               },
+               "buttons": {
+                    "save": "Save settings",
+                    "test": "Test API credentials"
+               },
+               "onsiteMessaging": {
+                    "generate": "Generate your data here",
+                    "playgroundUrl": "https://playground.eu.portal.klarna.com/on-site-messaging/#realm=merchants",
+                    "defaultUrl": "https://eu.portal.klarna.com/on-site-messaging/#realm=merchants"
+               },
+               "klarnaPayments": {
+                    "payLater": {
+                         "description": "The option to pay later makes buying quicker and easier for customers: no need to fill out lengthy personal details or card number online.",
+                         "title": "Pay Later"
+                    },
+                    "sliceIt": {
+                         "description": "Your customers can spread the cost of their purchases at a low interest rate, giving them flexibility and increased purchasing power. Our unique credit application requires minimal information and takes just seconds to complete.",
+                         "title": "Financing"
+                    },
+                    "payNow": {
+                         "additional": "To use \"Pay Now\", you have to assign the payment methods \"Pay Now\", \"Credit Card\", \"Direct Debit\" and \"Online Bank Transfer\" to your sales channels.",
+                         "description": "Customers who want to pay in full at checkout can do it quickly and securely with Klarna's Pay Now-option - using credit/debit card or direct bank transfer: Klarna Direkt, Sofort, SEPA Direct Debit.",
+                         "title": "Pay Now"
+                    }
+               }
+          }
+     }
+}

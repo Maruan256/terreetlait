@@ -1,0 +1,34 @@
+@import "~scss/variables";
+
+.klarna-payment-transactionHistory {
+  .sw-card__content {
+    padding: 0;
+  }
+
+  .sw-data-grid__actions-menu {
+    display: none;
+  }
+
+  .sw-data-grid__cell--actions {
+    width: 100px;
+  }
+}
+
+.klarna-payment-detail--transaction-details {
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.klarna-payment-detail--transaction-details--button {
+  padding-top: 25px;
+}
+
+.is--mobile .sw-container.mobile--ready {
+  grid-template-columns: none !important;
+}
+
+.klarna-payment-actions .rfnd-btn,
+.klarna-payment-actions .cncl-btn,
+.klarna-payment-actions .cpt-btn {
+  width: auto;
+}

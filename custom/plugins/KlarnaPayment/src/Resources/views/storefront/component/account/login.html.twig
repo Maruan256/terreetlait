@@ -1,0 +1,9 @@
+{% sw_extends '@Storefront/storefront/component/account/login.html.twig' %}
+
+{% block component_account_login %}
+    {{ parent() }}
+
+    {% block klarna_component_account_login_sign_in_with_klarna_button %}
+        {% sw_include '@Storefront/storefront/klarna/sign-in-with-klarna.html.twig' %}
+    {% endblock %}
+{% endblock %}

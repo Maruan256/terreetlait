@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- CreateOrderRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\CreateOrder\CreateOrderRequestHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\LineItem\LineItemStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Delivery\DeliveryStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\SalesTaxLineItem\SalesTaxLineItemStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Address\AddressStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Customer\CustomerStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="KlarnaPayment\Components\Converter\CustomOrderConverter" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderFetcher" />
+            <argument type="service" id="router.default" />
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader" />
+        </service>
+
+        <!-- CreateExpressOrderRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\CreateOrder\CreateExpressOrderRequestHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\LineItem\LineItemStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Delivery\DeliveryStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\SalesTaxLineItem\SalesTaxLineItemStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Address\AddressStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Customer\CustomerStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="KlarnaPayment\Components\Converter\CustomOrderConverter" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderFetcher" />
+            <argument type="service" id="router.default" />
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader" />
+        </service>
+
+        <!-- CreateSessionRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\CreateSession\CreateSessionRequestHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\LineItem\LineItemStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Delivery\DeliveryStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\SalesTaxLineItem\SalesTaxLineItemStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="country.repository" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Customer\CustomerStructHydrator"/>
+            <argument type="service" id="router.default"/>
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader"/>
+            <argument type="service" id="request_stack" />
+        </service>
+
+        <!-- CreateExtendedSessionRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\CreateSession\CreateExtendedSessionRequestHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\CreateSession\CreateSessionRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Address\AddressStructHydrator" />
+            <argument type="service" id="monolog.logger.KlarnaPayment" />
+        </service>
+
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateAddress\UpdateAddressRequestHydrator" />
+
+        <!-- TestRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\Test\TestRequestHydrator" />
+
+        <!-- UpdateOrderRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateOrder\UpdateOrderRequestHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Converter\CustomOrderConverter" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderFetcher" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\LineItem\LineItemStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Delivery\DeliveryStructHydrator" />
+            <argument type="service" id="Shopware\Core\System\SalesChannel\Context\SalesChannelContextFactory"/>
+        </service>
+
+        <!-- CancelOrderRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\CancelPayment\CancelPaymentRequestHydrator" />
+
+        <!-- ReleaseRemainingAuthorizationRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\ReleaseRemainingAuthorization\ReleaseRemainingAuthorizationHydrator" />
+
+        <!-- ExtendAuthorization -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\ExtendAuthorization\ExtendAuthorizationRequestHydrator" />
+
+        <!-- CreateCaptureRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\CreateCapture\CreateCaptureRequestHydrator" />
+
+        <!-- CreateRefundRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\CreateRefund\CreateRefundRequestHydrator" />
+
+        <!-- GetOrderRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\GetOrder\GetOrderRequestHydrator" />
+
+        <!-- AddShippingInfoRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\AddShippingInfo\AddShippingInfoRequestHydrator">
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <!-- UpdateSessionRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateSession\UpdateSessionRequestHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\LineItem\LineItemStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Delivery\DeliveryStructHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="country.repository" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\SalesTaxLineItem\SalesTaxLineItemStructHydrator"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Customer\CustomerStructHydrator"/>
+            <argument type="service" id="router.default"/>
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader"/>
+            <argument type="service" id="request_stack" />
+        </service>
+
+        <!-- UpdateExtendedSessionRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateSession\UpdateExtendedSessionRequestHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateSession\UpdateSessionRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Address\AddressStructHydrator" />
+        </service>
+
+        <!-- CreateHppSessionRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\CreateHppSession\CreateHppSessionRequestHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="router.default"/>
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader"/>
+            <argument type="service" id="monolog.logger.KlarnaPayment" />
+        </service>
+
+        <!-- GetHppSessionDetailsRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\GetHppSessionDetails\GetHppSessionDetailsRequestHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="monolog.logger.KlarnaPayment" />
+        </service>
+
+        <!-- GetSessionDetailsRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\GetSessionDetails\GetSessionDetailsRequestHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper" />
+            <argument type="service" id="monolog.logger.KlarnaPayment" />
+        </service>
+
+        <!-- UpdateMerchantReferencesRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateMerchantReferences\UpdateMerchantReferencesRequestHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderFetcher" />
+        </service>
+
+        <!-- UpdateMerchantReferencesRequest -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Request\RefreshToken\RefreshTokenRequestHydrator">
+            <argument type="service" id="monolog.logger.KlarnaPayment" />
+        </service>
+    </services>
+</container>

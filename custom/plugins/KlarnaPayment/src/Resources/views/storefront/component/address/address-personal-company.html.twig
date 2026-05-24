@@ -1,0 +1,11 @@
+{% sw_extends '@Storefront/storefront/component/address/address-personal-company.html.twig' %}
+
+{% block component_address_form_company_department %}
+    {{ parent() }}
+
+    {% sw_include '@Storefront/storefront/component/address/klarna-address-form.html.twig' with {
+        'idPrefix': idPrefix,
+        'prefix': prefix,
+        'data': data
+    } %}
+{% endblock %}

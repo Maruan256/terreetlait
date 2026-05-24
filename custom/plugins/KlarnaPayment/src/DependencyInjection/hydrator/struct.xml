@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- AddressStruct -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Struct\Address\AddressStructHydrator">
+            <argument type="service" id="country.repository"/>
+        </service>
+
+        <!-- DeliveryStruct -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Struct\Delivery\DeliveryStructHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Helper\LineItemHelper\LineItemStructHelper"/>
+        </service>
+
+        <!-- CustomerStruct -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Struct\Customer\CustomerStructHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\SignInWithKlarnaHelper\SignInWithKlarnaHelper"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\RefreshToken\RefreshTokenRequestHydrator"/>
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader"/>
+            <argument type="service" id="monolog.logger.KlarnaPayment" />
+            <argument type="service" id="request_stack" />
+        </service>
+
+        <!-- ProductIdentifierStruct -->
+        <service
+            id="KlarnaPayment\Components\Client\Hydrator\Struct\ProductIdentifier\ProductIdentifierStructHydrator"/>
+
+        <!-- LineItemStruct -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Struct\LineItem\LineItemStructHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\ProductIdentifier\ProductIdentifierStructHydrator"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\LineItemHelper\LineItemStructHelper" />
+        </service>
+
+        <!-- SalesTaxLineItemStruct -->
+        <service id="KlarnaPayment\Components\Client\Hydrator\Struct\SalesTaxLineItem\SalesTaxLineItemStructHydrator">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\ProductIdentifier\ProductIdentifierStructHydrator"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\LineItemHelper\LineItemStructHelper" />
+        </service>
+
+    </services>
+</container>

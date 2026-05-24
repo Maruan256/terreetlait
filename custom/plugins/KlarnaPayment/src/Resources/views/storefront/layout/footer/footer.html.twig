@@ -1,0 +1,19 @@
+{% sw_extends '@Storefront/storefront/layout/footer/footer.html.twig' %}
+
+{% block layout_footer_payment_logos %}
+    {# @var \KlarnaPayment\Components\Struct\PaymentMethodBadge klarnaBadge #}
+
+    {% set klarnaBadge = footer.extensions[constant('KlarnaPayment\\Components\\Struct\\PaymentMethodBadge::EXTENSION_NAME')] %}
+
+    {% if klarnaBadge %}
+        {% if klarnaBadge.paymentType is same as(constant('KlarnaPayment\\Components\\Struct\\PaymentMethodBadge::TYPE_PAYMENTS')) %}
+            {% block klarna_payments_footer_badge %}
+                <div class="footer-logo is-payment">
+                    <img src="https://x.klarnacdn.net/payment-method/assets/badges/generic/klarna.png" class="img-fluid footer-logo-image" alt="Klarna Payments" title="Klarna Payments">
+                </div>
+            {% endblock %}
+        {% endif %}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}

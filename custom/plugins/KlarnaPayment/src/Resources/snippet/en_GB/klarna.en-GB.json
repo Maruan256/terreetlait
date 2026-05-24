@@ -1,0 +1,70 @@
+{
+     "KlarnaPayment": {
+          "errorMessages": {
+               "genericError": "An error has occurred.",
+               "paymentDeclined": "Klarna has refused the payment, please choose another payment method.",
+               "addressChangeDeclined": "Klarna does not approve the address change.",
+               "lineItemChangeDeclined": "Klarna does not approve the cart change.",
+               "expressLoginError": "Login via Klarna Express is currently not possible.",
+               "signInWithKlarnaError": "Login via Klarna is currently not possible."
+          },
+          "klarnaPayments": {
+               "cardTitle": "Klarna."
+          },
+          "cookie": {
+               "klarna": "Klarna",
+               "metrix": "Online Metrix"
+          },
+          "entityType": {
+               "label": "Legal form",
+               "placeholder": "Please select...",
+               "LIMITED_COMPANY": "Limited liability company",
+               "CIVIL_LAW_PARTNERSHIP": "Civil law partnership",
+               "ENTREPRENEURIAL_COMPANY": "Entrepreneurial company (with limited liability)",
+               "GENERAL_PARTNERSHIP": "General partnership",
+               "LIMITED_PARTNERSHIP": "Limited partnership",
+               "LIMITED_PARTNERSHIP_LIMITED_COMPANY": "Limited liability company and limited partnership",
+               "PUBLIC_INSTITUTION": "Public institution",
+               "PUBLIC_LIMITED_COMPANY": "Public limited company",
+               "REGISTERED_SOLE_TRADER": "Registered sole trader",
+               "SOLE_TRADER": "Sole trader",
+               "OTHER": "Other"
+          },
+          "registrationId": {
+               "label": "Registration ID",
+               "placeholder": "Enter registration ID..."
+          },
+          "signInWithKlarna": {
+               "account": {
+                    "title": "Login with"
+               },
+               "matching": {
+                    "headline": {
+                         "title": "Check and confirm billing address",
+                         "description": "A different Klarna address has been recognised: Check and accept with one click."
+                    },
+                    "headline-create": {
+                         "title": "Check and confirm billing address",
+                         "description": "There is no Klarna address available. Enter your address to create a user."
+                    },
+                    "input": {
+                         "compareTitle": "<strong>Currently in shop:</strong> %shopValue%"
+                    },
+                    "button": {
+                         "label": {
+                              "abort": "Go back",
+                              "create": "Save"
+                         }
+                    }
+               }
+          }
+     },
+     "error": {
+          "VIOLATION::KLARNA_INVALID_CART_HASH": "The payment has been declined, please try again."
+     },
+     "checkout": {
+          "error": {
+               "state": "Please select the state of your billing address."
+          }
+     }
+}

@@ -1,0 +1,146 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_main_inner %}
+    <div class="container">
+        <div class="container-main">
+            {% block page_content %}
+                {% set isRegisterAddress = page.registerAddress %}
+
+                <fieldset class="siwk-address-form">
+                    {% block klarna_siwk_matching_headline %}
+                        {% block klarna_siwk_matching_headline_title %}
+                            <h1 class="my-4">
+                                {% if not isRegisterAddress %}
+                                    {{ 'KlarnaPayment.signInWithKlarna.matching.headline.title'|trans|sw_sanitize }}
+                                {% else %}
+                                    {{ 'KlarnaPayment.signInWithKlarna.matching.headline-create.title'|trans|sw_sanitize }}
+                                {% endif %}
+                            </h1>
+                        {% endblock %}
+
+                        {% block klarna_siwk_matching_headline_subtitle %}
+                            {% if not isRegisterAddress %}
+                                <p>{{ 'KlarnaPayment.signInWithKlarna.matching.headline.description'|trans|sw_sanitize }}</p>
+                            {% else %}
+                                <p>{{ 'KlarnaPayment.signInWithKlarna.matching.headline-create.description'|trans|sw_sanitize }}</p>
+                            {% endif %}
+                        {% endblock %}
+                    {% endblock %}
+
+                    {% block klarna_siwk_matching_form %}
+                        {% set formHandlerOptions = {
+                               formFieldSelector: 'input, textarea, select, button[type="submit"][name="submitButton"]',
+                               loadingIndicator: false
+                            }
+                        %}
+
+                        <form
+                            action="{{ path('frontend.klarna.handle.siwk-matching') }}"
+                            method="post"
+                            data-form-handler="true"
+                            data-form-handler-options='{{ formHandlerOptions|json_encode }}'
+                        >
+                            {% block klarna_siwk_matching_form_inner %}
+                                {% set prefix = 'siwkAddress' %}
+                                {% set data = page.collectedData %}
+
+                                {% block klarna_siwk_matching_form_redirect %}
+                                    <input type="hidden"
+                                        name="redirectTo"
+                                        value="{{ page.redirectTo }}">
+                                {% endblock %}
+
+                                {% block klarna_siwk_matching_form_action %}
+                                    <input type="hidden"
+                                        name="errorRoute"
+                                        value="{{ activeRoute }}">
+                                {% endblock %}
+
+                                {% block klarna_siwk_matching_form_address_id %}
+                                    <input 
+                                        type="hidden"
+                                        name="{{ prefix }}[id]"
+                                        value="{{ data.id }}"
+                                    >
+                                {% endblock %}
+
+                                {% block klarna_siwk_matching_form_customer_id %}
+                                    <input 
+                                        type="hidden"
+                                        name="customerId"
+                                        value="{{ data.customerId }}"
+                                    >
+                                {% endblock %}
+
+                                {% block page_account_address_form_edit_personal %}
+                                    {% sw_include '@Storefront/storefront/component/address/address-personal.html.twig' with {
+                                        data: data,
+                                        hideCustomerTypeSelect: true,
+                                        identical : false,
+                                        prefix: prefix,
+                                        showBirthdayField: isRegisterAddress and config('core.loginRegistration.showBirthdayField'),
+                                    } %}
+                                {% endblock %}
+
+                                {% block page_account_address_form_edit_general %}
+                                    {% sw_include '@Storefront/storefront/component/address/address-form.html.twig' with {
+                                        data: data,
+                                        prefix: prefix,
+                                        showFormCompany: false,
+                                        showNoShippingPostfix: true,
+                                        scopeElementSelector: '.siwk-address-form',
+                                    } %}
+                                {% endblock %}
+
+                                {% block page_account_address_required %}
+                                    <p class="address-required-info required-fields">
+                                        {{ 'general.requiredFields'|trans|sw_sanitize }}
+                                    </p>
+                                {% endblock %}
+
+                                {% block klarna_siwk_matching_form_submit_buttons %}
+                                    <div class="row g-2">
+                                        {% if isRegisterAddress %}
+                                            {% block klarna_siwk_matching_form_submit_buttons_abort_button %}
+                                                <a class="btn btn-primary btn-lg col-12 col-md-6" href='{{ path("frontend.account.register.page") }}' target='_self'>{{ 'KlarnaPayment.signInWithKlarna.matching.button.label.abort'|trans|sw_sanitize }}</a>
+                                            {% endblock %}
+
+                                            {% block klarna_siwk_matching_form_submit_buttons_create_button %}
+                                                {% sw_include '@KlarnaPayment/storefront/klarna/form-submit-button.html.twig' with {
+                                                    label: 'KlarnaPayment.signInWithKlarna.matching.button.label.create'|trans|sw_sanitize,
+                                                    id: 'create',
+                                                    name: 'create',
+                                                    additionalClass: 'col-12 col-md-6'
+                                                } %}
+                                            {% endblock %}
+                                        {% endif %}
+
+                                        {% if not isRegisterAddress %}
+                                            {% block klarna_siwk_matching_form_submit_buttons_remain_button %}
+                                                {% sw_include '@KlarnaPayment/storefront/klarna/form-submit-button.html.twig' with {
+                                                    label: 'KlarnaPayment.signInWithKlarna.matching.button.label.abort'|trans|sw_sanitize,
+                                                    id: 'remainButton',
+                                                    name: 'remain',
+                                                    additionalClass: 'col-12 col-md-6'
+                                                } %}
+                                            {% endblock %}
+
+                                            {% block klarna_siwk_matching_form_submit_buttons_update_button %}
+                                                {% sw_include '@KlarnaPayment/storefront/klarna/form-submit-button.html.twig' with {
+                                                    label: 'KlarnaPayment.signInWithKlarna.matching.button.label.create'|trans|sw_sanitize,
+                                                    id: 'updateButton',
+                                                    name: 'update',
+                                                    additionalClass: 'col-12 col-md-6'
+                                                } %}
+                                            {% endblock %}
+                                        {% endif %}
+                                    </div>
+                                {% endblock %}
+                            {% endblock %}
+                        </form>
+                    {% endblock %}
+                </fieldset>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

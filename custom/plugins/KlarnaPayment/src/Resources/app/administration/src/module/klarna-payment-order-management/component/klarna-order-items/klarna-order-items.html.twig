@@ -1,0 +1,66 @@
+{# @var \KlarnaPayment\Components\Client\Response\GetOrderResponse klarnaOrder #}
+
+{% block klarna_payment_payment_details %}
+    <div class="klarna-order-items">
+        <sw-data-grid
+          :data-source="orderItems"
+          :columns="orderItemColumns"
+          :show-actions="true"
+          :show-selection="true"
+          :allow-inline-edit="true"
+          @inline-edit-save="onInlineEditSave"
+          @select-item="onSelectItem">
+
+            <template #column-reference="{ item, isInlineEdit}">
+                <div v-tooltip="{ message: item.reference, disabled: item.reference.length <= 15 }">
+                    {{ truncateFilter(item.reference, 15, true, '...') }}
+                </div>
+            </template>
+
+            <template #column-product="{ item, isInlineEdit}">
+                <sw-product-variant-info
+                        :variations="item.options">
+                    <div class="sw-order-line-items-grid__item-label">
+                        {{ item.product }}
+                    </div>
+                </sw-product-variant-info>
+            </template>
+
+            <template #column-price="{ item, isInlineEdit}">
+                {{ item.price }}
+            </template>
+
+            <template #column-stock="{ item, isInlineEdit }">
+                {% block klarna_order_items_stock_inline_edit %}
+                    <template v-if="isInlineEdit">
+                        <mt-number-field
+                            v-model="item.amount"
+                            :size="small"
+                            @input-change="onChangeQuantity($event, item.id)"
+                            :disabled="item.disabled"
+                            :max="item.amount"
+                        />
+                    </template>
+                {% endblock %}
+
+                {% block klarna_order_items_stock_content %}
+                    <template v-else>
+                        {{ item.amount }}
+                    </template>
+                {% endblock %}
+            </template>
+
+            <template #column-returnStatus="{ item, isInlineEdit }">
+                <mt-skeleton-bar v-if="isReturnDataLoading" />
+                <ul v-else-if="!isReturnDataLoading && item.returnStatus">
+                    <li v-for="(orderRefundLineItem, returnNumber) in item.returnStatus">
+                        {{ $tc('swag-return-management.returnCard.labelTitle', 0, { returnNumber: returnNumber }) }}: {{ orderRefundLineItem.state.translated.name }}
+                    </li>
+                </ul>
+                <div v-else>
+                    {{ $tc('klarna-payment-order-management.refundModal.noReturnRequested') }}
+                </div>
+            </template>
+        </sw-data-grid>
+    </div>
+{% endblock %}

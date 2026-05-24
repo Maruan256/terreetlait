@@ -1,0 +1,10 @@
+{
+     "klarna": {
+          "sw-settings-payment": {
+               "banner": {
+                    "title": "Warning!",
+                    "text": "This payment method is no longer used separately in the Klarna Payments integration, as several payment methods have been merged into a single payment method. Instead, please use the payment method <a href=\"{link}\" target=\"_blank\">Pay with Klarna</a>. If the this payment method is still present in your sales channel configuration, this will not have any effect. However, we recommend removing this payment method manually."
+               }
+          }
+     }
+}

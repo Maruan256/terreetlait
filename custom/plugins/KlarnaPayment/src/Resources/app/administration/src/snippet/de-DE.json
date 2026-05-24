@@ -1,0 +1,10 @@
+{
+     "klarna": {
+          "sw-settings-payment": {
+               "banner": {
+                    "title": "Achtung!",
+                    "text": "Diese Zahlungsmethode wird in der Klarna-Payments-Integration nicht mehr separat geführt, da mehrere Zahlungsarten zu einer gemeinsamen Zahlart zusammengeführt wurden. Stattdessen verwenden Sie bitte die Zahlungsart <a href=\"{link}\" target=\"_blank\">Pay with Klarna</a>. Falls diese Zahlungsart weiterhin in der Konfiguration Ihres Verkaufskanals vorhanden ist, hat dies keine Auswirkungen. Wir empfehlen dennoch, diese Zahlungsart manuell zu entfernen."
+               }
+          }
+     }
+}

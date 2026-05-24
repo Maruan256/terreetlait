@@ -1,0 +1,51 @@
+@import "~scss/variables";
+
+.klarna-field--osm-description {
+    // TODO: use variable $font-size-xs when dropping compatibility to Shopware 6.4
+    font-size: 14px;
+    margin: -10px 0 20px 0;
+}
+
+.klarna-payment-settings-kp__info {
+    margin-bottom: 50px;
+
+    ul {
+        list-style: none;
+
+        li {
+            padding: 0 20px;
+            vertical-align: top;
+
+            h3 {
+                display: block;
+                text-align: center;
+            }
+
+            p {
+                margin-bottom: 20px;
+            }
+
+            img {
+                display: block;
+                margin: 20px auto;
+                height: 40px;
+            }
+        }
+    }
+
+    @media screen and (min-width: 900px) {
+        ul {
+            li {
+                display: inline-block;
+                width: 33%;
+                vertical-align: top;
+                padding-left: 0;
+                padding-right: 25px;
+
+                &:last-child {
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+}

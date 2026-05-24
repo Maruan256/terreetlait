@@ -1,0 +1,9 @@
+{% sw_extends "@Storefront/storefront/component/payment/payment-form.html.twig" %}
+
+{% block component_payment_form_redirect %}
+	{{ parent() }}
+
+	{% set selectedCatKey = constant('KlarnaPayment\\Components\\Client\\Hydrator\\Request\\UpdateSession\\UpdateSessionRequestHydratorInterface::KLARNA_SELECTED_CATEGORY') %}
+
+	<input id='{{ selectedCatKey }}' type="hidden" name="{{ selectedCatKey }}" value="">
+{% endblock %}

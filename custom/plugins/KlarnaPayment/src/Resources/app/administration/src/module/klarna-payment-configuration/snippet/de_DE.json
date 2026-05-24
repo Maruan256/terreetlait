@@ -1,0 +1,63 @@
+{
+     "klarna-payment-configuration": {
+          "module": {
+               "title": "Klarna.",
+               "description": "Klarna."
+          },
+          "settingsForm": {
+               "title": "Klarna",
+               "inheritanceWarning": "Die Darstellung der Vererbung für die Plugin-Konfiguration wurde mit Shopware 6.3.4.0 optimiert. Bitte aktualisieren Sie Ihr System, wenn Sie die Vererbung sicher verwenden möchten.",
+               "apiConfiguration": {
+                    "notice": "Bitte beachten Sie, dass der Test- und Debug-Modus nicht individuell pro Region konfiguriert werden kann, da der entsprechende Endpunkt anhand der Rechnungsadresse gewählt wird.",
+                    "modal-address": {
+                         "title": "Achtung: Risiko bei deaktivierter Adressvalidierung",
+                         "text": "Wenn die Adressvalidierung deaktiviert ist, kann es dazu kommen, dass die Versandadresse nicht mehr mit der ursprünglich von Klarna akzeptierten Adresse übereinstimmt. Bitte beachte, dass in solchen Fällen du als Händler das Risiko trägst, dass bei einem Klärfall gegen dich entschieden wird. Mehr Informationen findest du in unserem"
+                    },
+                    "modal-lineItem": {
+                         "title": "Achtung: Risiko bei deaktivierter Positionsprüfung",
+                         "text": "Das Deaktivieren der Positionsprüfung kann zu Abweichungen zwischen Shop und Klarna führen. Bitte beachte, dass in solchen Fällen du als Händler das Risiko trägst, dass bei einem Klärfall gegen dich entschieden wird. Mehr Informationen findest du in unserem"
+                    }
+               },
+               "globalPurchaseMissingInfo": "Sofort bezahlen, Pay Later und Ratenkauf werden zu einer einzigen Zahlungsmethode zusammengefasst: Bezahlen mit Klarna. Jeder Klarna-Kunde wird in Kürze automatisch auf diese neue Zahlungsmethode migriert. Der Status Ihrer Migration wird jedes Mal überprüft, wenn ein Kunde die Seite zur Bestellbestätigung aufruft. Diese Meldung verschwindet automatisch, sobald Sie migriert sind",
+               "deprecatedConfiguration": "Sofort bezahlen, Pay Later und Ratenkauf sind jetzt in einer Zahlungsmethode kombiniert: Bezahlen mit Klarna. Diese Konfiguration wird nicht mehr benötigt und wird in einer zukünftigen Version entfernt.",
+               "messages": {
+                    "titleSuccess": "Erfolg",
+                    "titleError": "Fehler",
+                    "messageTestEUSuccess": "Die API-Zugangsdaten für Europa wurden erfolgreich validiert.",
+                    "messageTestUSSuccess": "Die API-Zugangsdaten für Nordamerika wurden erfolgreich validiert.",
+                    "messageTestEUErrorLive": "Die API-Zugangsdaten für Europa konnten nicht validiert werden.",
+                    "messageTestEUErrorTest": "Die API-Zugangsdaten für Europa des Testmodus konnten nicht validiert werden.",
+                    "messageTestUSErrorLive": "Die API-Zugangsdaten für Nordamerika konnten nicht validiert werden.",
+                    "messageTestUSErrorTest": "Die API-Zugangsdaten für Nordamerika des Testmodus konnten nicht validiert werden.",
+                    "messageSaveSuccess": "Die Plugin-Einstellungen wurden gespeichert.",
+                    "messageSaveError": "Die Plugin-Einstellungen konnten nicht gespeichert werden.",
+                    "messageMissingApiUsername": "Für den aktiven Modus wurde kein Wert für die Option \"Api-Benutzername\" angegeben!",
+                    "messageMissingApiPassword": "Für den aktiven Modus wurde kein Wert für die Option \"Api-Password\" angegeben!"
+               },
+               "buttons": {
+                    "save": "Einstellungen speichern",
+                    "test": "API-Zugangsdaten testen"
+               },
+               "onsiteMessaging": {
+                    "generate": "Generiere deine Daten hier",
+                    "playgroundUrl": "https://playground.eu.portal.klarna.com/on-site-messaging/#realm=merchants",
+                    "defaultUrl": "https://eu.portal.klarna.com/on-site-messaging/#realm=merchants"
+               },
+               "klarnaPayments": {
+                    "payLater": {
+                         "description": "Die Option \"Rechnung\" macht Kunden den Bezahlvorgang einfach und schnell, ohne dabei persönliche Daten oder komplizierte Nummern eingeben zu müssen. Der Kunde hat die Wahl zwischen Rechnung und im Monat X bezahlen.",
+                         "title": "Pay Later"
+                    },
+                    "sliceIt": {
+                         "description": "Mittels \"Ratenkauf\" können Kunden die Einkaufssumme bei geringen Zinsen in Häppchen aufteilen. Das erhöht den Investitionsrahmen und die Kaufkraft. Klarna's einzigartige Kreditbearbeitung erfordert nur wenige Augenblicke und minimale Dateneingabe. Der Kunde hat die Wahl zwischen fixen und flexiblen Raten.",
+                         "title": "Ratenkauf"
+                    },
+                    "payNow": {
+                         "additional": "Für \"Sofort bezahlen\" müssen sowohl die kombinierte Zahlungsmethode \"Sofort bezahlen\" als auch die einzelnen Zahlungsmethoden \"Kreditkarte\", \"Lastschrift\" und \"Sofortüberweisung\" zu den Verkaufskanälen hinzugefügt werden.",
+                         "description": "Kunden, die Beträge sofort vollständig beim Bestellabschluss bezahlen möchten, können die Option \"Sofort bezahlen\" nutzen. Zur Auswahl stehen hierbei Kreditkarte, Lastschrift und die Sofortüberweisung.",
+                         "title": "Sofort bezahlen"
+                    }
+               }
+          }
+     }
+}

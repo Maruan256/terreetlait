@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="KlarnaPayment\Components\Helper\StateHelper\Capture\CaptureStateHelper">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\CreateCapture\CreateCaptureRequestHydrator"/>
+            <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\StateData\StateDataHelper"/>
+            <argument type="service" id="monolog.logger.KlarnaPayment"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Client"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\StateHelper\Refund\RefundStateHelper">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\CreateRefund\CreateRefundRequestHydrator"/>
+            <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\StateData\StateDataHelper"/>
+            <argument type="service" id="monolog.logger.KlarnaPayment"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Client"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\StateHelper\Cancel\CancelStateHelper">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\CancelPayment\CancelPaymentRequestHydrator"/>
+            <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\StateData\StateDataHelper"/>
+            <argument type="service" id="monolog.logger.KlarnaPayment"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Client"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\StateHelper\Unconfirmed\UnconfirmedStateHelper">
+            <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\StateData\StateDataHelper"/>
+            <argument type="service" id="monolog.logger.KlarnaPayment"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\StateHelper\Authorize\AuthorizeStateHelper">
+            <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\StateHelper\StateData\StateDataHelper"/>
+            <argument type="service" id="monolog.logger.KlarnaPayment"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\StateHelper\StateData\StateDataHelper">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\GetOrder\GetOrderRequestHydrator"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Client"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\PaymentHelper\PaymentHelper">
+            <argument type="service" id="sales_channel.repository" />
+            <argument type="service" id="language.repository" />
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\UpdateOrderRequestHasher">
+            <argument tag="string">%env(APP_SECRET)%</argument>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\UpdateAddressRequestHasher">
+            <argument tag="string">%env(APP_SECRET)%</argument>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\OrderFetcher">
+            <argument type="service" id="order.repository"/>
+            <argument type="service" id="Shopware\Core\System\SalesChannel\Context\SalesChannelContextFactory"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Factory\MerchantDataFactory">
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\OrderValidator\OrderValidator">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateAddress\UpdateAddressRequestHydrator"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateOrder\UpdateOrderRequestHydrator"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Client"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\UpdateOrderRequestHasher"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\UpdateAddressRequestHasher"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderHashUpdater"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\GetOrder\GetOrderRequestHydrator"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Response\GetOrder\GetOrderResponseHydrator"/>
+            <argument type="service" id="monolog.logger.KlarnaPayment"/>
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader" />
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\OrderDeliveryHelper\OrderDeliveryHelper">
+            <argument type="service" id="order_delivery.repository"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\EndpointHelper\EndpointHelper">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="session" on-invalid="null"/>
+            <argument type="service" id="request_stack" on-invalid="null"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\LineItemHelper\LineItemStructHelper">
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="Shopware\Core\Content\Seo\SeoUrlPlaceholderHandlerInterface"/>
+            <argument type="service" id="shipping_method.repository" />
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\OrderHashUpdater">
+            <argument type="service" id="klarna_order_extension.repository"/>
+            <argument type="service" id="KlarnaPayment\Components\Helper\UpdateOrderRequestHasher"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\SynchronizationHelper\SynchronizationHelper">
+            <argument type="service" id="order.repository"/>
+            <argument type="service" id="order_address.repository"/>
+            <argument type="service" id="order_delivery.repository"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\GetOrder\GetOrderRequestHydrator"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Response\GetOrder\GetOrderResponseHydrator"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Client"/>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\MediaHelper\MediaHelper" />
+
+        <service id="KlarnaPayment\Components\Helper\SignInWithKlarnaHelper\SignInWithKlarnaHelper">
+            <argument type="service" id="KlarnaPayment\Components\ConfigReader\ConfigReader" />
+            <argument type="service" id="Shopware\Core\Framework\Plugin\PluginService" />
+            <argument type="service" id="customer.repository" />
+            <argument type="service" id="monolog.logger.KlarnaPayment" />
+            <argument>%kernel.shopware_version%</argument>
+        </service>
+
+        <service id="KlarnaPayment\Components\Helper\Hpp\HppHelper">
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\CreateSession\CreateExtendedSessionRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Client" />
+            <argument type="service" id="Shopware\Core\System\SalesChannel\Context\SalesChannelContextPersister"/>
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Struct\Address\AddressStructHydrator" />
+            <argument type="service" id="order.repository" />
+            <argument type="service" id="KlarnaPayment\Components\Converter\CustomOrderConverter" />
+            <argument type="service" id="KlarnaPayment\Components\Helper\OrderFetcher" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\UpdateSession\UpdateExtendedSessionRequestHydrator" />
+            <argument type="service" id="KlarnaPayment\Components\Client\Hydrator\Request\CreateHppSession\CreateHppSessionRequestHydrator" />
+            <argument type="service" id="monolog.logger.KlarnaPayment" />
+            <argument type="string">%env(APP_SECRET)%</argument>
+        </service>
+    </services>
+</container>
