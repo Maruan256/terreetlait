@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/trunk/src/Core/Framework/App/Manifest/Schema/manifest-3.0.xsd">
+    <meta>
+        <name>ButtonColorChange</name>
+        <label>Button Color</label>
+        <description>Specific colors for buttons</description>
+        <author>Maruan</author>
+        <copyright>maruan</copyright>
+        <version>1.0.0</version>
+        <icon></icon>
+        <license>MIT</license>
+    </meta>
+</manifest>
